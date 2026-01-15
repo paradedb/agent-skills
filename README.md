@@ -2,19 +2,198 @@
 
 An AI agent skill for [ParadeDB](https://paradedb.com) — Elasticsearch-like full-text search in Postgres.
 
+This skill uses a **pointer-based approach**: instead of bundling static documentation that can go stale, it instructs agents to fetch the latest ParadeDB docs from [https://docs.paradedb.com/llms-full.txt](https://docs.paradedb.com/llms-full.txt) in real-time.
+
 ## Installation
 
-Copy `SKILL.md` to your agent's skills directory:
+### Quick Install (All Compatible Tools)
 
-| Agent | Location |
-|-------|----------|
-| Amp | `~/.config/agents/skills/paradedb/SKILL.md` |
-| Claude Code | `.claude/skills/paradedb/SKILL.md` |
-| Cursor | `.cursor/rules/paradedb.md` |
-| Windsurf | Append to `.windsurfrules` |
-| Copilot | `.github/copilot-instructions.md` |
+```bash
+# Clone this repo
+git clone https://github.com/paradedb/agent-skills
+
+# Install for your preferred tool(s)
+cd agent-skills
+
+# Claude Code (global)
+mkdir -p ~/.claude/skills/paradedb-skill
+cp SKILL.md ~/.claude/skills/paradedb-skill/
+
+# OpenCode (global)
+mkdir -p ~/.config/opencode/skill/paradedb-skill
+cp SKILL.md ~/.config/opencode/skill/paradedb-skill/
+
+# Amp (global)
+mkdir -p ~/.config/agents/skills/paradedb-skill
+cp SKILL.md ~/.config/agents/skills/paradedb-skill/
+```
+
+### Tool-Specific Instructions
+
+<details>
+<summary><strong>Claude Code</strong></summary>
+
+#### Global Installation (Recommended)
+Available in all projects:
+```bash
+mkdir -p ~/.claude/skills/paradedb-skill
+curl -o ~/.claude/skills/paradedb-skill/SKILL.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+```
+
+#### Project-Specific Installation
+Available only in the current project:
+```bash
+mkdir -p .claude/skills/paradedb-skill
+curl -o .claude/skills/paradedb-skill/SKILL.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+```
+
+The skill will auto-load when you ask about ParadeDB, BM25, or full-text search in Postgres.
+
+</details>
+
+<details>
+<summary><strong>OpenCode</strong></summary>
+
+#### Global Installation (Recommended)
+Available in all projects:
+```bash
+mkdir -p ~/.config/opencode/skill/paradedb-skill
+curl -o ~/.config/opencode/skill/paradedb-skill/SKILL.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+```
+
+#### Project-Specific Installation
+Available only in the current project:
+```bash
+mkdir -p .opencode/skill/paradedb-skill
+curl -o .opencode/skill/paradedb-skill/SKILL.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+```
+
+Verify the skill is loaded:
+```bash
+opencode
+# Then in the TUI, the skill will appear in available skills
+```
+
+</details>
+
+<details>
+<summary><strong>Cursor</strong></summary>
+
+Cursor uses `.cursorrules` instead of skills. Append the skill content to your rules file:
+
+#### Project-Specific (Recommended)
+```bash
+curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> .cursorrules
+```
+
+#### Global (All Projects)
+```bash
+curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> ~/.cursorrules
+```
+
+**Note:** Remove the YAML frontmatter (the lines between `---`) from the `.cursorrules` file after appending.
+
+</details>
+
+<details>
+<summary><strong>VS Code (GitHub Copilot)</strong></summary>
+
+#### Project-Specific (Recommended)
+Add to your project's Copilot instructions:
+```bash
+mkdir -p .github
+curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> .github/copilot-instructions.md
+```
+
+#### Via Workspace Settings
+Alternatively, add to `.vscode/settings.json`:
+```json
+{
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "file": "SKILL.md"
+    }
+  ]
+}
+```
+
+Then download `SKILL.md` to your project root:
+```bash
+curl -O https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+```
+
+**Note:** Remove the YAML frontmatter (the lines between `---`) after downloading.
+
+</details>
+
+<details>
+<summary><strong>Amp</strong></summary>
+
+#### Global Installation (Recommended)
+Available in all projects:
+```bash
+mkdir -p ~/.config/agents/skills/paradedb-skill
+curl -o ~/.config/agents/skills/paradedb-skill/SKILL.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+```
+
+#### Project-Specific Installation
+Available only in the current project:
+```bash
+mkdir -p .agents/skills/paradedb-skill
+curl -o .agents/skills/paradedb-skill/SKILL.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+```
+
+The skill will auto-load when you mention ParadeDB in your prompts.
+
+</details>
+
+<details>
+<summary><strong>Windsurf</strong></summary>
+
+Windsurf uses `.windsurfrules`. Append the skill content:
+
+```bash
+curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> .windsurfrules
+```
+
+**Note:** Remove the YAML frontmatter (the lines between `---`) from the `.windsurfrules` file after appending.
+
+</details>
+
+## Usage
+
+Once installed, the skill activates automatically when you ask your AI agent about:
+- ParadeDB
+- BM25 indexing
+- Full-text search in Postgres
+- Elasticsearch alternatives for PostgreSQL
+
+The agent will fetch the latest documentation from ParadeDB and provide accurate, up-to-date guidance.
+
+### Example Prompts
+
+```
+Create a BM25 index for full-text search on my products table
+
+How do I implement fuzzy search with ParadeDB?
+
+Write a ParadeDB query with faceted search and aggregations
+
+Help me migrate from Elasticsearch to ParadeDB
+```
 
 ## Links
 
-- [ParadeDB Docs](https://docs.paradedb.com)
-- [LLM-optimized Docs](https://docs.paradedb.com/llms-full.txt)
+- [ParadeDB Documentation](https://docs.paradedb.com)
+- [LLM-Optimized Docs](https://docs.paradedb.com/llms-full.txt) (what this skill points to)
+- [ParadeDB GitHub](https://github.com/paradedb/paradedb)
+
+## License
+
+MIT

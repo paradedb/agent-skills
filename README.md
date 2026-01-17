@@ -1,32 +1,10 @@
 # ParadeDB Agent Skill
 
-An AI agent skill for [ParadeDB](https://paradedb.com) — Elasticsearch-like full-text search in Postgres.
+An AI agent skill for [ParadeDB](https://paradedb.com) — Elasticsearch-quality full-text search in Postgres.
 
 This skill uses a **pointer-based approach**: instead of bundling static documentation that can go stale, it instructs agents to fetch the latest ParadeDB docs from [https://docs.paradedb.com/llms-full.txt](https://docs.paradedb.com/llms-full.txt) in real-time.
 
 ## Installation
-
-### Quick Install (All Compatible Tools)
-
-```bash
-# Clone this repo
-git clone https://github.com/paradedb/agent-skills
-
-# Install for your preferred tool(s)
-cd agent-skills
-
-# Claude Code (global)
-mkdir -p ~/.claude/skills/paradedb-skill
-cp SKILL.md ~/.claude/skills/paradedb-skill/
-
-# OpenCode (global)
-mkdir -p ~/.config/opencode/skill/paradedb-skill
-cp SKILL.md ~/.config/opencode/skill/paradedb-skill/
-
-# Amp (global)
-mkdir -p ~/.config/agents/skills/paradedb-skill
-cp SKILL.md ~/.config/agents/skills/paradedb-skill/
-```
 
 ### Tool-Specific Instructions
 

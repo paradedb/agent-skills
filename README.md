@@ -23,6 +23,8 @@ Available in all projects:
 mkdir -p ~/.claude/skills/paradedb-skill
 curl -o ~/.claude/skills/paradedb-skill/SKILL.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -o ~/.claude/skills/paradedb-skill/EXAMPLES.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 #### Project-Specific Installation
@@ -31,6 +33,8 @@ Available only in the current project:
 mkdir -p .claude/skills/paradedb-skill
 curl -o .claude/skills/paradedb-skill/SKILL.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -o .claude/skills/paradedb-skill/EXAMPLES.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 The skill will auto-load when you ask about ParadeDB, BM25, or full-text search in Postgres.
@@ -46,6 +50,8 @@ Available in all projects:
 mkdir -p ~/.config/opencode/skill/paradedb-skill
 curl -o ~/.config/opencode/skill/paradedb-skill/SKILL.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -o ~/.config/opencode/skill/paradedb-skill/EXAMPLES.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 #### Project-Specific Installation
@@ -54,6 +60,8 @@ Available only in the current project:
 mkdir -p .opencode/skill/paradedb-skill
 curl -o .opencode/skill/paradedb-skill/SKILL.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -o .opencode/skill/paradedb-skill/EXAMPLES.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 Verify the skill is loaded:
@@ -76,6 +84,8 @@ Available in all projects:
 mkdir -p ~/.cursor/skills/paradedb-skill
 curl -o ~/.cursor/skills/paradedb-skill/SKILL.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -o ~/.cursor/skills/paradedb-skill/EXAMPLES.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 #### Project-Specific
@@ -84,6 +94,8 @@ Available only in the current project:
 mkdir -p .cursor/skills/paradedb-skill
 curl -o .cursor/skills/paradedb-skill/SKILL.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -o .cursor/skills/paradedb-skill/EXAMPLES.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 The skill will auto-load when you mention ParadeDB in your prompts.
@@ -99,6 +111,8 @@ Available in all projects:
 mkdir -p ~/.copilot/skills/paradedb-skill
 curl -o ~/.copilot/skills/paradedb-skill/SKILL.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -o ~/.copilot/skills/paradedb-skill/EXAMPLES.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 #### Project-Specific
@@ -106,6 +120,7 @@ Add to your project's Copilot instructions:
 ```bash
 mkdir -p .github
 curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> .github/copilot-instructions.md
+curl https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md >> .github/copilot-instructions.md
 ```
 
 #### Via Workspace Settings
@@ -123,6 +138,7 @@ Alternatively, add to `.vscode/settings.json`:
 Then download `SKILL.md` to your project root:
 ```bash
 curl -O https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -O https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 **Note:** Remove the YAML frontmatter (the lines between `---`) after downloading.
@@ -138,6 +154,8 @@ Available in all projects:
 mkdir -p ~/.config/agents/skills/paradedb-skill
 curl -o ~/.config/agents/skills/paradedb-skill/SKILL.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -o ~/.config/agents/skills/paradedb-skill/EXAMPLES.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 #### Project-Specific Installation
@@ -146,6 +164,8 @@ Available only in the current project:
 mkdir -p .agents/skills/paradedb-skill
 curl -o .agents/skills/paradedb-skill/SKILL.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+curl -o .agents/skills/paradedb-skill/EXAMPLES.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
 The skill will auto-load when you mention ParadeDB in your prompts.
@@ -159,9 +179,10 @@ Windsurf uses `.windsurfrules`. Append the skill content:
 
 ```bash
 curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> .windsurfrules
+curl https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md >> .windsurfrules
 ```
 
-**Note:** Remove the YAML frontmatter (the lines between `---`) from the `.windsurfrules` file after appending.
+**Note:** Remove the YAML frontmatter (the lines between `---`) from both files when appending to `.windsurfrules`.
 
 </details>
 

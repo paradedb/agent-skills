@@ -163,7 +163,15 @@ How do I implement fuzzy search with ParadeDB?
 
 Write a ParadeDB query with faceted search and aggregations
 
-Help me migrate from Elasticsearch to ParadeDB
+Translate this Elasticsearch query to ParadeDB SQL:
+{
+  "query": {
+    "bool": {
+      "must": [ { "match": { "description": "running shoes" } } ],
+      "filter": [ { "term": { "brand": "nike" } } ]
+    }
+  }
+}
 ```
 
 ## Links

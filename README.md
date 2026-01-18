@@ -58,29 +58,44 @@ opencode
 
 </details>
 
+> [!NOTE]
+> **Cursor Agent Skills are only available in the nightly release channel.** To switch channels, open Cursor Settings (Cmd+Shift+J), select **Beta**, then set your update channel to **Nightly**. You may need to restart Cursor after the update.
+
 <details>
 <summary><strong>Cursor</strong></summary>
 
-Cursor uses `.cursorrules` instead of skills. Append the skill content to your rules file:
-
-#### Project-Specific (Recommended)
+#### Global Installation (Recommended)
+Available in all projects:
 ```bash
-curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> .cursorrules
+mkdir -p ~/.cursor/skills/paradedb-skill
+curl -o ~/.cursor/skills/paradedb-skill/SKILL.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
 ```
 
-#### Global (All Projects)
+#### Project-Specific
+Available only in the current project:
 ```bash
-curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> ~/.cursorrules
+mkdir -p .cursor/skills/paradedb-skill
+curl -o .cursor/skills/paradedb-skill/SKILL.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
 ```
 
-**Note:** Remove the YAML frontmatter (the lines between `---`) from the `.cursorrules` file after appending.
+The skill will auto-load when you mention ParadeDB in your prompts.
 
 </details>
 
 <details>
 <summary><strong>VS Code (GitHub Copilot)</strong></summary>
 
-#### Project-Specific (Recommended)
+#### Global Installation (Recommended)
+Available in all projects:
+```bash
+mkdir -p ~/.copilot/skills/paradedb-skill
+curl -o ~/.copilot/skills/paradedb-skill/SKILL.md \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
+```
+
+#### Project-Specific
 Add to your project's Copilot instructions:
 ```bash
 mkdir -p .github
@@ -156,23 +171,7 @@ The agent will fetch the latest documentation from ParadeDB and provide accurate
 
 ### Example Prompts
 
-```
-Create a BM25 index for full-text search on my products table
-
-How do I implement fuzzy search with ParadeDB?
-
-Write a ParadeDB query with faceted search and aggregations
-
-Translate this Elasticsearch query to ParadeDB SQL:
-{
-  "query": {
-    "bool": {
-      "must": [ { "match": { "description": "running shoes" } } ],
-      "filter": [ { "term": { "brand": "nike" } } ]
-    }
-  }
-}
-```
+See [EXAMPLES.md](EXAMPLES.md) for a comprehensive list of example prompts organized by category.
 
 ## Links
 

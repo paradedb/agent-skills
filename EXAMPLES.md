@@ -7,8 +7,6 @@ This document contains example prompts you can use with the ParadeDB skill when 
 ```
 How do I ingest data into PostgreSQL with ParadeDB?
 
-How do I set up ParadeDB on an existing Postgres database?
-
 What's the quickest way to create a full-text searchable table?
 
 How do I generate embeddings for my documents and store them with pgvector?
@@ -67,8 +65,6 @@ Translate this Elasticsearch query to ParadeDB SQL:
   }
 }
 
-How do I migrate from Elasticsearch to ParadeDB?
-
 Can ParadeDB coexist with other PostgreSQL extensions?
 
 ```
@@ -97,6 +93,6 @@ Write a ParadeDB query that returns faceted counts for brand, price range, and c
 
 How do I build a filter sidebar with dynamic facet counts that update as users apply filters?
 
-How do I add range aggregations for numeric fields like price or rating?
+How do I add range aggregations for numeric fields like price ?
 
 ```

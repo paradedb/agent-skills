@@ -4,7 +4,13 @@ An AI agent skill for [ParadeDB](https://paradedb.com) — Elasticsearch-quality
 
 This skill uses a **pointer-based approach**: instead of bundling static documentation that can go stale, it instructs agents to fetch the latest ParadeDB docs from [https://docs.paradedb.com/llms-full.txt](https://docs.paradedb.com/llms-full.txt) in real-time.
 
+> [!NOTE]
+> **For users who prefer MCP:** ParadeDB documentation is also available via the Model Context Protocol at [https://docs.paradedb.com/mcp](https://docs.paradedb.com/mcp) for direct integration with MCP-compatible agents.
+
 ## Installation
+
+> [!TIP]
+> **Easiest way to sync across all agents:** Use [dotagents](https://github.com/iannuttall/dotagents) to manage and sync your skills automatically across Claude Code, OpenCode, Cursor, VS Code, and other AI agents. This saves you from manually installing the same skill in multiple locations.
 
 ### Tool-Specific Instructions
 

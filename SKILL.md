@@ -7,7 +7,7 @@ description: Expert guidance on ParadeDB full-text search, hybrid search (BM25 +
 
 ParadeDB brings Elasticsearch-like full-text search and analytics to PostgreSQL using the `pg_search` extension. It provides BM25 ranking, advanced tokenizers, aggregations, and real-time indexing with ACID compliance.
 
-**Key capabilities:** Full-text search with BM25 relevance scoring, hybrid search (keyword + semantic embeddings via pgvector), fuzzy matching, phrase queries, faceted search, and Tantivy-powered performance.
+**Key capabilities:** Full-text search with BM25 relevance scoring, hybrid search (keyword + semantic embeddings via pgvector), tokenization and analyzer configuration, fuzzy matching, phrase queries, faceted search, sorting, snippets and highlighting, and Tantivy-powered performance.
 
 For complete and up-to-date ParadeDB documentation, always fetch:
 

@@ -5,7 +5,7 @@ This document contains example prompts you can use with the ParadeDB skill when 
 ## Getting Started & Setup
 
 ```
-How do I ingest data into PostgreSQL with ParadeDB?
+What are the ways to index large datasets for search using ParadeDB?
 
 What's the quickest way to create a full-text searchable table?
 
@@ -73,8 +73,6 @@ Can ParadeDB coexist with other PostgreSQL extensions?
 
 ```
 How do I configure field weights in BM25 to prioritize title matches over description?
-
-How do I tune BM25 parameters (k1, b) for better relevance scoring?
 
 How do I set up ngram tokenization for partial matching and autocomplete?
 

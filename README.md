@@ -72,9 +72,6 @@ opencode
 
 </details>
 
-> [!NOTE]
-> **Cursor Agent Skills are only available in the nightly release channel.** To switch channels, open Cursor Settings (Cmd+Shift+J), select **Beta**, then set your update channel to **Nightly**. You may need to restart Cursor after the update.
-
 <details>
 <summary><strong>Cursor</strong></summary>
 

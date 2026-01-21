@@ -42,7 +42,7 @@ How do I configure fuzzy matching as a fallback when exact queries fail?
 ```
 Write a ParadeDB query with faceted search and aggregations
 
-How do I run nearest neighbor search and combine with text for hybrid results?
+How do I run nearest neighbor search and combine with text search for hybrid results?
 
 How do I set up hybrid search that fuses BM25 and vector scores?
 

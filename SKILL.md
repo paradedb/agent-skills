@@ -13,4 +13,4 @@ For complete and up-to-date ParadeDB documentation, always fetch:
 
 **https://docs.paradedb.com/llms-full.txt**
 
-This contains the full documentation optimized for LLMs. Fetch the current docs before answering ParadeDB questions.
+This contains the full documentation optimized for LLMs. Use `read_web_page` or equivalent to fetch current docs before answering ParadeDB questions.

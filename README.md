@@ -179,7 +179,7 @@ curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> .w
 curl https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md >> .windsurfrules
 ```
 
-**Note:** Remove the YAML frontmatter (the lines between `---`) from `SKILL.md` when appending to `.windsurfrules`.
+**Note:** Remove the YAML frontmatter (the lines between `---`) from both files when appending to `.windsurfrules`.
 
 </details>
 

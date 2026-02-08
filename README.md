@@ -85,7 +85,7 @@ curl -o ~/.cursor/skills/paradedb-skill/EXAMPLES.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
-#### Project-Specific
+#### Project-Specific Installation
 Available only in the current project:
 ```bash
 mkdir -p .cursor/skills/paradedb-skill
@@ -112,7 +112,7 @@ curl -o ~/.copilot/skills/paradedb-skill/EXAMPLES.md \
   https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
 ```
 
-#### Project-Specific
+#### Project-Specific Installation
 Add to your project's Copilot instructions:
 ```bash
 mkdir -p .github
@@ -179,7 +179,7 @@ curl https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md >> .w
 curl https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md >> .windsurfrules
 ```
 
-**Note:** Remove the YAML frontmatter (the lines between `---`) from both files when appending to `.windsurfrules`.
+**Note:** Remove the YAML frontmatter (the lines between `---`) from `SKILL.md` when appending to `.windsurfrules`.
 
 </details>
 

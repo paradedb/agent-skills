@@ -91,6 +91,6 @@ Write a ParadeDB query that returns faceted counts for brand, price range, and c
 
 How do I build a filter sidebar with dynamic facet counts that update as users apply filters?
 
-How do I add range aggregations for numeric fields like price ?
+How do I add range aggregations for numeric fields like price?
 
 ```

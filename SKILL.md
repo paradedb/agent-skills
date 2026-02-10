@@ -14,3 +14,15 @@ For complete and up-to-date ParadeDB documentation, always fetch:
 **https://docs.paradedb.com/llms-full.txt**
 
 This contains the full documentation optimized for LLMs. Use `read_web_page` or equivalent to fetch current docs before answering ParadeDB questions.
+
+## Network Failure Rules (Mandatory)
+
+If `llms-full.txt` (or any required docs URL) cannot be fetched due to DNS/network/access errors:
+
+1. State clearly that live docs could not be accessed and include the actual error.
+2. Ask the user whether to proceed with local/repo-only context or to retry later.
+3. Do **not** invent or infer doc URLs, page paths, or feature availability.
+4. Do **not** present unverified links as real.
+5. Label any fallback statements as assumptions and keep them minimal.
+
+Never silently switch to guessed documentation structure when network access fails.

@@ -215,4 +215,4 @@ See [EXAMPLES.md](EXAMPLES.md) for a comprehensive list of example prompts organ
 
 ## License
 
-MIT
+MIT License - see [LICENSE](LICENSE) for details.

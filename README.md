@@ -9,10 +9,20 @@ This skill uses a **pointer-based approach**: instead of bundling static documen
 
 ## Installation
 
-> [!TIP]
+### One-Line Install (Recommended)
+
+`npx skills add` supports almost all the known agents : Amp, Antigravity, Claude Code, OpenClaw, Codex, Cursor*, Droid, Gemini CLI, GitHub Copilot, OpenCode, Pi, Roo Code, Trae, and others.
+
+```bash
+npx skills add paradedb/agent-skills
+```
+
+* With Cursor you may have to choose non symlink version when asked by the installer. 
+
+### Alternative one line install
 > **Easiest way to sync across all agents:** Use [dotagents](https://github.com/iannuttall/dotagents) to manage and sync your skills automatically across Claude Code, OpenCode, Cursor, VS Code, and other AI agents. This saves you from manually installing the same skill in multiple locations.
 
-### Tool-Specific Instructions
+### Manual Tool-Specific Instructions
 
 <details>
 <summary><strong>Claude Code</strong></summary>

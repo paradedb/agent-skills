@@ -1,2 +1,9 @@
-# Claude
+# Agent-local directories
 .claude/
+.agents/
+.cursor/
+.opencode/
+.windsurf/
+.codeium/
+.codex/
+.vscode/

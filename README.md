@@ -17,8 +17,7 @@ This skill uses a pointer-based approach. Instead of bundling static docs that c
 npx skills add paradedb/agent-skills
 ```
 
-`npx skills add` is the most stable installation path because the installer
-keeps up with agent-specific directory conventions.
+`npx skills add` is the most stable installation path because the installer keeps up with agent-specific directory conventions.
 
 ### Sync Across Agents
 

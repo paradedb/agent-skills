@@ -1,6 +1,6 @@
 # ParadeDB Agent Skill
 
-An AI agent skill for [ParadeDB](https://paradedb.com): Elasticsearch-quality full-text search in Postgres.
+An AI agent skill for [ParadeDB](https://paradedb.com) - Elasticsearch-quality full-text search in Postgres.
 
 This skill uses a pointer-based approach. Instead of bundling static docs that can become stale, it instructs agents to fetch current ParadeDB docs from [https://docs.paradedb.com/llms-full.txt](https://docs.paradedb.com/llms-full.txt) at runtime.
 

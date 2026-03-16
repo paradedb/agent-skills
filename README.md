@@ -59,33 +59,25 @@ curl -fsSL \
 For project-local installs, change `TARGET_DIR` to the corresponding project
 directory (for example, `.claude/skills/paradedb-skill`).
 
-### VS Code (GitHub Copilot) Workspace Setup
+### VS Code (GitHub Copilot) Repository Instructions
 
-Copilot does not currently use the same `skills` folder conventions as other
-agents. A stable project-local option is to reference `SKILL.md` from workspace
-settings.
+GitHub Copilot supports repository-wide instructions via
+`.github/copilot-instructions.md`.
 
 ```bash
-curl -fsSL -o SKILL.md \
-  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md
-curl -fsSL -o EXAMPLES.md \
-  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md
+mkdir -p .github
+curl -fsSL \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/SKILL.md \
+  | awk 'NR == 1 && $0 == "---" { in_frontmatter = 1; next } in_frontmatter && $0 == "---" { in_frontmatter = 0; next } !in_frontmatter { if (!started && $0 == "") { next } started = 1; print }' \
+  > .github/copilot-instructions.md
+printf '\n\n' >> .github/copilot-instructions.md
+curl -fsSL \
+  https://raw.githubusercontent.com/paradedb/agent-skills/main/EXAMPLES.md \
+  >> .github/copilot-instructions.md
 ```
 
-Then add this to `.vscode/settings.json`:
-
-```json
-{
-  "github.copilot.chat.codeGeneration.instructions": [
-    {
-      "file": "SKILL.md"
-    }
-  ]
-}
-```
-
-If your repo already has `.vscode/settings.json`, merge this key instead of
-overwriting existing settings.
+This keeps the file in the location Copilot looks for repository instructions
+and strips the YAML frontmatter from `SKILL.md` before appending the examples.
 
 ## Usage
 

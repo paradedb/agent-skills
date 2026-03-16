@@ -1,19 +1,36 @@
 ---
 name: paradedb-skill
-description: Expert guidance on ParadeDB full-text search, hybrid search (BM25 + semantic), aggregations, and analytics in Postgres. Use when writing ParadeDB queries, creating BM25 indexes, configuring tokenizers, or implementing Elasticsearch-quality search in Postgres.
+description: >
+  Expert guidance on ParadeDB full-text search, hybrid search (BM25 + semantic),
+  aggregations, and analytics in Postgres. Use when writing ParadeDB queries,
+  creating BM25 indexes, configuring tokenizers, or implementing
+  Elasticsearch-quality search in Postgres.
 ---
 
 # ParadeDB Skill
 
-ParadeDB brings Elasticsearch-quality full-text search and analytics to Postgres using the `pg_search` extension. It provides BM25 ranking, advanced tokenizers, aggregations, and real-time indexing with ACID compliance.
+ParadeDB brings Elasticsearch-quality full-text search and analytics to
+Postgres via the `pg_search` extension.
 
-**Key capabilities:** Full-text search with BM25 relevance scoring, hybrid search (keyword + semantic embeddings via pgvector), tokenization and analyzer configuration, fuzzy matching, phrase queries, faceted search, sorting, snippets and highlighting, and Tantivy-powered performance.
+Use this skill when users ask about:
+
+- BM25 indexes and relevance ranking
+- Hybrid search (keyword + semantic vectors via `pgvector`)
+- Tokenizers, analyzers, fuzzy matching, and phrase queries
+- Facets, aggregations, snippets/highlighting, and query tuning
 
 For complete and up-to-date ParadeDB documentation, always fetch:
 
-**https://docs.paradedb.com/llms-full.txt**
+**[https://docs.paradedb.com/llms-full.txt](https://docs.paradedb.com/llms-full.txt)**
 
-This contains the full documentation optimized for LLMs. Use your web fetching tool to retrieve current docs before answering ParadeDB questions.
+Use your web-fetching tool to retrieve current docs before answering ParadeDB
+questions. Treat behavior claims as version-dependent until verified.
+
+## Response Guidelines
+
+1. Prefer runnable SQL examples over prose-only answers.
+2. State ParadeDB/Postgres version assumptions when syntax may differ.
+3. If behavior is uncertain, call it out explicitly instead of guessing.
 
 ## Network Failure Rules (Mandatory)
 

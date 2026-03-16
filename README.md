@@ -32,14 +32,14 @@ Use this path when `npx skills add` is unavailable.
 > [!TIP]
 > Directory conventions below were verified on **March 3, 2026**.
 
-| Agent | Global directory | Project directory |
-| --- | --- | --- |
-| Claude Code | `~/.claude/skills` | `.claude/skills` |
-| OpenCode | `~/.config/opencode/skills` (or `~/.opencode/skills`) | `.opencode/skills` |
-| Cursor | `~/.cursor/skills` | `.cursor/skills` |
-| Amp | `~/.config/agents/skills` | `.agents/skills` |
-| Windsurf | `~/.codeium/windsurf/skills` | `.windsurf/skills` |
-| Codex | `$CODEX_HOME/skills` | Set `CODEX_HOME` to a project-local path |
+| Agent       | Global directory                                      | Project directory                        |
+| ----------- | ----------------------------------------------------- | ---------------------------------------- |
+| Claude Code | `~/.claude/skills`                                    | `.claude/skills`                         |
+| OpenCode    | `~/.config/opencode/skills` (or `~/.opencode/skills`) | `.opencode/skills`                       |
+| Cursor      | `~/.cursor/skills`                                    | `.cursor/skills`                         |
+| Amp         | `~/.config/agents/skills`                             | `.agents/skills`                         |
+| Windsurf    | `~/.codeium/windsurf/skills`                          | `.windsurf/skills`                       |
+| Codex       | `$CODEX_HOME/skills`                                  | Set `CODEX_HOME` to a project-local path |
 
 Install the skill in the directory that matches your agent:
 

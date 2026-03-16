@@ -2,7 +2,7 @@
 
 An AI agent skill for [ParadeDB](https://paradedb.com) - Elasticsearch-quality full-text search in Postgres.
 
-This skill uses a pointer-based approach. Instead of bundling static docs that can become stale, it instructs agents to fetch current ParadeDB docs from [https://docs.paradedb.com/llms-full.txt](https://docs.paradedb.com/llms-full.txt) at runtime.
+This skill uses a pointer-based approach. Instead of bundling static docs that can become stale, it instructs agents to fetch current ParadeDB docs from [https://docs.paradedb.com/llms-full.txt](https://docs.paradedb.com/llms-full.txt) at runtime and reuse the first successful fetch for the rest of the session.
 
 > [!NOTE]
 > ParadeDB also supports MCP integrations. For setup instructions, use
@@ -88,9 +88,16 @@ Once installed, the skill activates when you ask your AI agent about:
 - Full-text search in Postgres
 - Elasticsearch alternatives for Postgres
 
-The agent should fetch live docs before answering. If docs are unavailable due
-to network or access errors, the skill requires the agent to report the error
-and ask whether to continue with local context only.
+On the first ParadeDB question in a session, the agent should fetch live docs
+before answering. After a successful fetch, it should reuse that session copy
+for later ParadeDB questions and only refetch when the user asks for a refresh,
+the answer depends on newer/current changes, the earlier fetch was incomplete,
+or the session context is no longer available.
+
+If docs are unavailable due to network or access errors, the skill requires the
+agent to report the error. When a cached session copy exists, the agent should
+say it can continue from that cached copy; otherwise it should ask whether to
+continue with local context only.
 
 ### Example Prompts
 

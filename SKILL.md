@@ -19,38 +19,31 @@ Use this skill when users ask about:
 - Tokenizers, analyzers, fuzzy matching, and phrase queries
 - Facets, aggregations, snippets/highlighting, and query tuning
 
-For complete and up-to-date ParadeDB documentation, always fetch:
+For up-to-date ParadeDB documentation, always fetch the documentation index:
 
-**[https://docs.paradedb.com/llms-full.txt](https://docs.paradedb.com/llms-full.txt)**
+**[https://docs.paradedb.com/llms.txt](https://docs.paradedb.com/llms.txt)**. 
 
 Use your web-fetching tool to retrieve current docs before answering ParadeDB
 questions. Treat behavior claims as version-dependent until verified.
 
 ## Documentation Fetch Policy
 
-1. On the first ParadeDB question in a session, fetch `llms-full.txt`.
+1. On the first ParadeDB question in a session, fetch `llms.txt` and use it as
+   an index to fetch all other pages necessary to resolve the user's request.
 2. After a successful fetch, treat that content as cached session context and
-   reuse it for later ParadeDB questions in the same session.
+   reuse it for later ParadeDB questions in the same session if applicable.
 3. Do not refetch on every turn when the previously fetched docs are still
    available and relevant.
-4. Refresh the docs only when one of these is true:
-   - the user asks for a refresh or re-fetch
-   - the question depends on very recent/current changes
-   - the needed content was not included in the earlier fetch
-   - session context appears lost, truncated, or unavailable
-   - the earlier fetch failed or looked incomplete
 
 ## Response Guidelines
 
 1. Prefer runnable SQL examples over prose-only answers.
 2. State ParadeDB/Postgres version assumptions when syntax may differ.
-3. Say when you are relying on cached session docs versus a fresh fetch if that
-   matters to the answer.
-4. If behavior is uncertain, call it out explicitly instead of guessing.
+3. If behavior is uncertain, call it out explicitly instead of guessing.
 
 ## Network Failure Rules (Mandatory)
 
-If `llms-full.txt` (or any required docs URL) cannot be fetched due to DNS/network/access errors:
+If `llms.txt` (or any required docs URL) cannot be fetched due to DNS/network/access errors:
 
 1. State clearly that live docs could not be accessed and include the actual error.
 2. If you have cached session docs from an earlier successful fetch, say that

@@ -21,15 +21,15 @@ Use this skill when users ask about:
 
 For up-to-date ParadeDB documentation, always fetch the documentation index:
 
-**[https://docs.paradedb.com/sitemap.xml](https://docs.paradedb.com/sitemap.xml)**. 
+**[https://docs.paradedb.com/llms.txt](https://docs.paradedb.com/llms.txt)**. 
 
 Use your web-fetching tool to retrieve current docs before answering ParadeDB
 questions. Treat behavior claims as version-dependent until verified.
 
 ## Documentation Fetch Policy
 
-1. On the first ParadeDB question in a session, fetch `sitemap.xml` to get the
-   full list of URLs.
+1. On the first ParadeDB question in a session, fetch `llms.txt` requesting the
+   **raw, verbatim content** so you get the full list of URLs. **DO NOT SUMMARIZE llms.txt**. If the result is summarized, fetch it again and retry.
 2. Fetch every doc page relevant to the user's question, again requesting the
    **raw, verbatim content** of each page.
 3. After a successful fetch, treat that content as cached session context and

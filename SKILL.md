@@ -28,11 +28,13 @@ questions. Treat behavior claims as version-dependent until verified.
 
 ## Documentation Fetch Policy
 
-1. On the first ParadeDB question in a session, fetch `llms.txt` and use it as
-   an index to fetch all other pages necessary to resolve the user's request.
-2. After a successful fetch, treat that content as cached session context and
+1. On the first ParadeDB question in a session, fetch `llms.txt` requesting the
+   **raw, verbatim content** so you get the full list of URLs. **DO NOT SUMMARIZE llms.txt**. If the result is summarized, fetch it again and retry.
+2. Fetch every doc page relevant to the user's question, again requesting the
+   **raw, verbatim content** of each page.
+3. After a successful fetch, treat that content as cached session context and
    reuse it for later ParadeDB questions in the same session if applicable.
-3. Do not refetch on every turn when the previously fetched docs are still
+4. Do not refetch on every turn when the previously fetched docs are still
    available and relevant.
 
 ## Response Guidelines

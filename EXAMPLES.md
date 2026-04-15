@@ -2,35 +2,6 @@
 
 This document contains example prompts you can use with the ParadeDB skill when working with your AI agent.
 
-## Ask For Structured Answers
-
-For more reviewable answers, prepend this instruction to any prompt:
-
-```text
-Fetch ParadeDB docs from https://docs.paradedb.com/llms-full.txt once for this session and reuse them unless I ask you to refresh or you need newer/current information.
-Return:
-1) runnable SQL,
-2) a short explanation,
-3) version assumptions (ParadeDB/Postgres),
-4) edge cases and tradeoffs.
-```
-
-## Network-Aware Prompt
-
-Use this when you want strict behaviour if the docs cannot be fetched:
-
-```text
-If you cannot fetch live ParadeDB docs, show the exact error. If you already fetched them earlier in this session, continue from the cached session copy. Otherwise ask whether to continue with local assumptions only.
-```
-
-## Session Cache Prompt
-
-Use this when you want to force one fetch per conversation unless refreshed:
-
-```text
-If you have not fetched ParadeDB docs in this session yet, fetch https://docs.paradedb.com/llms-full.txt now and cache it for the rest of this session. Reuse that cached copy unless I ask you to refresh it or the answer depends on newer/current changes.
-```
-
 ## Getting Started & Setup
 
 ```text
@@ -39,7 +10,6 @@ What are the ways to index large datasets for search using ParadeDB?
 What's the quickest way to create a full-text searchable table?
 
 How do I generate embeddings for my documents and store them as pgvector columns?
-
 ```
 
 ## Basic Full-Text Search

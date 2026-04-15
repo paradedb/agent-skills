@@ -1,0 +1,107 @@
+# ParadeDB
+
+## Docs
+
+- [ParadeDB BYOC](https://docs.paradedb.com/deploy/byoc.md): Deploy ParadeDB Bring Your Own Cloud (BYOC) within your cloud environment
+- [GitHub Actions](https://docs.paradedb.com/deploy/ci/github-actions.md): How to run ParadeDB in Github Actions CI
+- [GitLab CI](https://docs.paradedb.com/deploy/ci/gitlab-ci.md): How to run ParadeDB in Gitlab CI
+- [Using ParadeDB with Citus](https://docs.paradedb.com/deploy/citus.md): Distributed full-text search with Citus and ParadeDB
+- [DigitalOcean](https://docs.paradedb.com/deploy/cloud-platforms/digitalocean.md): Deploy ParadeDB on a DigitalOcean Droplet
+- [Railway](https://docs.paradedb.com/deploy/cloud-platforms/railway.md): Deploy ParadeDB on Railway with one click
+- [Render](https://docs.paradedb.com/deploy/cloud-platforms/render.md): Deploy ParadeDB on Render with one click
+- [ParadeDB Enterprise](https://docs.paradedb.com/deploy/enterprise.md): Feature comparison between ParadeDB Community and Enterprise
+- [Schema Changes](https://docs.paradedb.com/deploy/logical-replication/configuration.md): Handle DDL/schema changes when running ParadeDB as a logical replica
+- [Getting Started with Logical Replication](https://docs.paradedb.com/deploy/logical-replication/getting-started.md): Configure ParadeDB as a logical subscriber to an existing Postgres primary
+- [Multi-Database Replication for Microservices](https://docs.paradedb.com/deploy/logical-replication/multi-database.md): Consolidate multiple microservice databases into a single ParadeDB instance for app-wide search and cross-database joins
+- [Logical Replication Operational Guide](https://docs.paradedb.com/deploy/logical-replication/operational-guide.md): Monitor, troubleshoot, and safely operate ParadeDB as a permanent logical replica
+- [Deploying ParadeDB](https://docs.paradedb.com/deploy/overview.md): Explore the different ways to deploy ParadeDB into production
+- [Extension](https://docs.paradedb.com/deploy/self-hosted/extension.md): How to install ParadeDB as an extension inside an existing self-managed Postgres
+- [High Availability](https://docs.paradedb.com/deploy/self-hosted/high-availability.md): Use read replicas to minimize downtime in production
+- [Kubernetes](https://docs.paradedb.com/deploy/self-hosted/kubernetes.md): How to deploy ParadeDB as a Kubernetes cluster into production
+- [Installing Third Party Extensions](https://docs.paradedb.com/deploy/third-party-extensions.md): How to install additional extensions into ParadeDB
+- [Upgrading ParadeDB](https://docs.paradedb.com/deploy/upgrading.md): How to update ParadeDB to the latest version
+- [Date Histogram](https://docs.paradedb.com/documentation/aggregates/bucket/datehistogram.md): Count the number of occurrences over fixed time intervals
+- [Filters](https://docs.paradedb.com/documentation/aggregates/bucket/filters.md): Compute aggregations over multiple filters in one query
+- [Histogram](https://docs.paradedb.com/documentation/aggregates/bucket/histogram.md): Count the number of occurrences over some interval
+- [Range](https://docs.paradedb.com/documentation/aggregates/bucket/range.md): Count the number of occurrences over user-defined buckets
+- [Terms](https://docs.paradedb.com/documentation/aggregates/bucket/terms.md): Count the number of occurrences for each value in a result set
+- [Facets](https://docs.paradedb.com/documentation/aggregates/facets.md): Compute a Top K and aggregate in one query
+- [Limitations](https://docs.paradedb.com/documentation/aggregates/limitations.md): Caveats for aggregate support
+- [Average](https://docs.paradedb.com/documentation/aggregates/metrics/average.md): Compute the average value of a field
+- [Cardinality](https://docs.paradedb.com/documentation/aggregates/metrics/cardinality.md): Compute the number of distinct values in a field
+- [Count](https://docs.paradedb.com/documentation/aggregates/metrics/count.md): Count the number of values in a field
+- [Min/Max](https://docs.paradedb.com/documentation/aggregates/metrics/minmax.md): Compute the min/max value of a field
+- [Percentiles](https://docs.paradedb.com/documentation/aggregates/metrics/percentiles.md): Analyze the distribution of a field
+- [Stats](https://docs.paradedb.com/documentation/aggregates/metrics/stats.md): Compute several metrics at once
+- [Sum](https://docs.paradedb.com/documentation/aggregates/metrics/sum.md): Compute the sum of a field
+- [Top Hits](https://docs.paradedb.com/documentation/aggregates/metrics/tophits.md): Compute the top hits for each bucket in a terms aggregation
+- [Aggregate Syntax](https://docs.paradedb.com/documentation/aggregates/overview.md): Accelerate aggregates with the ParadeDB index
+- [Performance Tuning](https://docs.paradedb.com/documentation/aggregates/tuning.md): Several settings can be tuned to improve the performance of aggregates in ParadeDB
+- [Filtering](https://docs.paradedb.com/documentation/filtering.md): Filter search results based on metadata from other fields
+- [Fuzzy](https://docs.paradedb.com/documentation/full-text/fuzzy.md): Allow for typos in the query string
+- [Highlighting](https://docs.paradedb.com/documentation/full-text/highlight.md): Generate snippets for portions of the source text that match the query string
+- [Match](https://docs.paradedb.com/documentation/full-text/match.md): Returns documents that match the provided query string, which is tokenized before matching
+- [How Text Search Works](https://docs.paradedb.com/documentation/full-text/overview.md): Understand how ParadeDB uses token matching to efficiently search large corpuses of text
+- [Phrase](https://docs.paradedb.com/documentation/full-text/phrase.md): Phrase queries are like match queries, but with order and position of matching tokens enforced
+- [Proximity](https://docs.paradedb.com/documentation/full-text/proximity.md): Match documents based on token proximity within the source document
+- [Term](https://docs.paradedb.com/documentation/full-text/term.md): Look for exact token matches in the source document, without any further processing of the query string
+- [Configure your Environment](https://docs.paradedb.com/documentation/getting-started/environment.md): Configure your environment for querying ParadeDB
+- [Install ParadeDB](https://docs.paradedb.com/documentation/getting-started/install.md): How to run the ParadeDB Docker image
+- [Load Data from Postgres](https://docs.paradedb.com/documentation/getting-started/load.md): Dump data from an existing Postgres and load into ParadeDB
+- [Run Queries](https://docs.paradedb.com/documentation/getting-started/queries.md): Run your first queries on ParadeDB
+- [Columnar Storage](https://docs.paradedb.com/documentation/indexing/columnar.md): Column-oriented indexing for fast filtering, sorting, and aggregates
+- [Create an Index](https://docs.paradedb.com/documentation/indexing/create-index.md): Index a Postgres table for full text search
+- [Indexing Text Arrays](https://docs.paradedb.com/documentation/indexing/indexing-arrays.md): Add text arrays to the index
+- [Indexing 32+ Columns](https://docs.paradedb.com/documentation/indexing/indexing-composite.md): Use composite types to index more than 32 columns
+- [Indexing Expressions](https://docs.paradedb.com/documentation/indexing/indexing-expressions.md): Add Postgres expressions to the index
+- [Indexing JSON](https://docs.paradedb.com/documentation/indexing/indexing-json.md): Add JSON and JSONB types to the index
+- [Partial Indexes](https://docs.paradedb.com/documentation/indexing/indexing-partial.md): Add row filters to the BM25 index
+- [Reindexing](https://docs.paradedb.com/documentation/indexing/reindexing.md): Rebuild an existing index with zero downtime
+- [Verify Index Integrity](https://docs.paradedb.com/documentation/indexing/verify-index.md): Check BM25 indexes for corruption and structural issues
+- [Joins Overview](https://docs.paradedb.com/documentation/joins/overview.md): Optimize JOIN queries in ParadeDB
+- [Migrating from Elasticsearch](https://docs.paradedb.com/documentation/migration/elasticsearch-feature-comparison.md): Feature comparison and migration guide for Elasticsearch users moving to ParadeDB
+- [Index Creation](https://docs.paradedb.com/documentation/performance-tuning/create-index.md): Settings to make index creation faster
+- [How to Tune ParadeDB](https://docs.paradedb.com/documentation/performance-tuning/overview.md): Settings for better read and write performance
+- [Read Throughput](https://docs.paradedb.com/documentation/performance-tuning/reads.md): Settings to improve read performance
+- [Write Throughput](https://docs.paradedb.com/documentation/performance-tuning/writes.md): Settings to improve write performance
+- [All](https://docs.paradedb.com/documentation/query-builder/compound/all.md): Search all rows in the index
+- [Query Parser](https://docs.paradedb.com/documentation/query-builder/compound/query-parser.md): Accept raw user-provided query strings
+- [How Advanced Query Functions Work](https://docs.paradedb.com/documentation/query-builder/overview.md): ParadeDB's query builder functions provide advanced query types
+- [Phrase Prefix](https://docs.paradedb.com/documentation/query-builder/phrase/phrase-prefix.md): Finds documents containing a phrase followed by a term prefix
+- [Regex Phrase](https://docs.paradedb.com/documentation/query-builder/phrase/regex-phrase.md): Matches a specific sequence of regex queries
+- [More Like This](https://docs.paradedb.com/documentation/query-builder/specialized/more-like-this.md): Finds documents that are "like" another document.
+- [Range Term](https://docs.paradedb.com/documentation/query-builder/term/range-term.md): Filters over Postgres range types
+- [Regex](https://docs.paradedb.com/documentation/query-builder/term/regex.md): Searches for terms that match a regex pattern
+- [Relevance Tuning](https://docs.paradedb.com/documentation/sorting/boost.md): Tune the BM25 score by adjusting the weights of individual queries
+- [BM25 Scoring](https://docs.paradedb.com/documentation/sorting/score.md): BM25 scores sort the result set by relevance
+- [Top K](https://docs.paradedb.com/documentation/sorting/topk.md): ParadeDB is optimized for quickly finding the Top K results in a table
+- [Alpha Numeric Only](https://docs.paradedb.com/documentation/token-filters/alphanumeric.md): Removes any tokens that contain characters that are not ASCII letters
+- [ASCII Folding](https://docs.paradedb.com/documentation/token-filters/ascii-folding.md): Strips away diacritical marks like accents
+- [Lowercase](https://docs.paradedb.com/documentation/token-filters/lowercase.md): Converts all characters to lowercase
+- [How Token Filters Work](https://docs.paradedb.com/documentation/token-filters/overview.md): Token filters apply additional processing to tokens like lowercasing or stemming
+- [Stemmer](https://docs.paradedb.com/documentation/token-filters/stemming.md): Reduces words to their root form for a given language
+- [Remove Stopwords](https://docs.paradedb.com/documentation/token-filters/stopwords.md): Remove language-specific stopwords from the index
+- [Token Length](https://docs.paradedb.com/documentation/token-filters/token-length.md): Remove tokens that are above or below a certain byte length from the index
+- [Trim](https://docs.paradedb.com/documentation/token-filters/trim.md): Remove trailing and leading whitespace from a token
+- [Chinese Compatible](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/chinese-compatible.md): A simple tokenizer for Chinese, Japanese, and Korean characters
+- [ICU](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/icu.md): Splits text according to the Unicode standard
+- [Jieba](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/jieba.md): The most advanced Chinese tokenizer that leverages both a dictionary and statistical models
+- [Lindera](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/lindera.md): Uses prebuilt dictionaries to tokenize Chinese, Japanese, and Korean text
+- [Literal](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/literal.md): Indexes the text in its raw form, without any splitting or processing
+- [Literal Normalized](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/literal-normalized.md): Like the literal tokenizer, but allows for token filters
+- [Ngram](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/ngrams.md): Splits text into small chunks called grams, useful for partial matching
+- [Regex Patterns](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/regex.md): Tokenizes text using a regular expression
+- [Simple](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/simple.md): Splits on any non-alphanumeric character
+- [Source Code](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/source-code.md): Tokenizes text that is actually code
+- [Unicode](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/unicode.md): The default text tokenizer in ParadeDB
+- [Whitespace](https://docs.paradedb.com/documentation/tokenizers/available-tokenizers/whitespace.md): Tokenizes text by splitting on whitespace
+- [Multiple Tokenizers Per Field](https://docs.paradedb.com/documentation/tokenizers/multiple-per-field.md): Apply different token configurations to the same field
+- [How Tokenizers Work](https://docs.paradedb.com/documentation/tokenizers/overview.md): Tokenizers split large chunks of text into small, searchable units called tokens
+- [Search Tokenizer](https://docs.paradedb.com/documentation/tokenizers/search-tokenizer.md): Use a different tokenizer at search time than at index time
+- [Integrate with AI](https://docs.paradedb.com/welcome/ai-agents.md): Teach your coding assistant to use ParadeDB
+- [Architecture](https://docs.paradedb.com/welcome/architecture.md): A deep dive into how ParadeDB is built on Postgres
+- [Guarantees](https://docs.paradedb.com/welcome/guarantees.md): ParadeDB ensures ACID compliance, concurrency, data integrity, and replication safety
+- [Simple, Elastic-Quality Search for Postgres](https://docs.paradedb.com/welcome/introduction.md): ParadeDB is the modern Elastic alternative built as a Postgres extension.
+- [Limitations & Tradeoffs](https://docs.paradedb.com/welcome/limitations.md): Understand ParadeDB's key limitations and tradeoffs
+- [Roadmap](https://docs.paradedb.com/welcome/roadmap.md): The main features that we are currently working on
+- [Help and Support](https://docs.paradedb.com/welcome/support.md): How to obtain support for ParadeDB

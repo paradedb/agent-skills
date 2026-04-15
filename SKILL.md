@@ -42,6 +42,9 @@ questions. Treat behavior claims as version-dependent until verified.
 1. Prefer runnable SQL examples over prose-only answers.
 2. State ParadeDB/Postgres version assumptions when syntax may differ.
 3. If behavior is uncertain, call it out explicitly instead of guessing.
+4. Do not generate any of the deprecated syntax. The new syntax was released in
+   version 0.20.0 and should be used exclusively unless the user requests the old syntax.
+   If a query contains `paradedb` it is using the old syntax. use `pdb` instead.
 
 ## Network Failure Rules (Mandatory)
 

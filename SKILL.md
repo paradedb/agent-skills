@@ -21,17 +21,18 @@ Use this skill when users ask about:
 
 For up-to-date ParadeDB documentation, always fetch the documentation index:
 
-**[https://docs.paradedb.com/llms.txt](https://docs.paradedb.com/llms.txt)**. 
+**[https://raw.githubusercontent.com/paradedb/paradedb/refs/heads/improve-claude-skill-usage/docs-index.json](https://raw.githubusercontent.com/paradedb/paradedb/refs/heads/improve-claude-skill-usage/docs-index.json)**. 
 
 Use your web-fetching tool to retrieve current docs before answering ParadeDB
 questions. Treat behavior claims as version-dependent until verified.
 
 ## Documentation Fetch Policy
 
-1. On the first ParadeDB question in a session, fetch `llms.txt` requesting the
-   **raw, verbatim content** so you get the full list of URLs. **DO NOT SUMMARIZE llms.txt**. If the result is summarized, fetch it again and retry.
-2. Fetch every doc page relevant to the user's question, again requesting the
-   **raw, verbatim content** of each page.
+1. On the first ParadeDB question in a session, fetch `docs-index.json` using your web fetch tool (not curl) to get the full list
+   of documentation URLs available on `https://docs.paradedb.com/`. **DO NOT SUMMARIZE THIS FILE**. If it does not contain the URLs, you'll need to fetch it again.
+   Do not silently proceed if you don't get the full content; keep trying until you have the URLs.
+2. Fetch every doc page relevant to the user's question using the exact URLs from docs-index.json,
+   again requesting the **raw, verbatim content** of each page.
 3. After a successful fetch, treat that content as cached session context and
    reuse it for later ParadeDB questions in the same session if applicable.
 4. Do not refetch on every turn when the previously fetched docs are still

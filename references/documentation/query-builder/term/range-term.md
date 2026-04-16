@@ -1,0 +1,189 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Range Term
+
+> Filters over Postgres range types
+
+`range_term` is the equivalent of Postgres' operators over [range types](https://www.postgresql.org/docs/current/rangetypes.html).
+It supports operations like range containment, overlap, and intersection.
+
+## Term Within
+
+In this example, `weight_range` is an `int4range` type.
+The following query finds all rows where `weight_range` contains `1`:
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT id, weight_range FROM mock_items
+  WHERE weight_range @@@ pdb.range_term(1);
+  ```
+
+  ```python Django theme={null}
+  from paradedb import ParadeDB, RangeTerm
+
+  MockItem.objects.filter(
+      weight_range=ParadeDB(RangeTerm(1))
+  ).values('id', 'weight_range')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import search
+
+  stmt = (
+      select(MockItem.id, MockItem.weight_range)
+      .where(search.range_term(MockItem.weight_range, 1))
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:weight_range)
+          .range_term(1)
+          .select(:id, :weight_range)
+  ```
+</CodeGroup>
+
+## Range Intersects
+
+The following query finds all ranges that share at least one common
+point with the query range:
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT id, weight_range FROM mock_items
+  WHERE weight_range @@@ pdb.range_term('(10, 12]'::int4range, 'Intersects');
+  ```
+
+  ```python Django theme={null}
+  from paradedb import ParadeDB, RangeTerm
+
+  MockItem.objects.filter(
+      weight_range=ParadeDB(RangeTerm('(10, 12]', relation='Intersects', range_type='int4range'))
+  ).values('id', 'weight_range')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import search
+
+  stmt = (
+      select(MockItem.id, MockItem.weight_range)
+      .where(
+          search.range_term(
+              MockItem.weight_range,
+              "(10, 12]",
+              relation="Intersects",
+              range_type="int4range",
+          )
+      )
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:weight_range)
+          .range_term("(10, 12]", relation: "Intersects", range_type: "int4range")
+          .select(:id, :weight_range)
+  ```
+</CodeGroup>
+
+## Range Contains
+
+The following query finds all ranges that are contained by the query range:
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT id, weight_range FROM mock_items
+  WHERE weight_range @@@ pdb.range_term('(3, 9]'::int4range, 'Contains');
+  ```
+
+  ```python Django theme={null}
+  from paradedb import ParadeDB, RangeTerm
+
+  MockItem.objects.filter(
+      weight_range=ParadeDB(RangeTerm('(3, 9]', relation='Contains', range_type='int4range'))
+  ).values('id', 'weight_range')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import search
+
+  stmt = (
+      select(MockItem.id, MockItem.weight_range)
+      .where(
+          search.range_term(
+              MockItem.weight_range,
+              "(3, 9]",
+              relation="Contains",
+              range_type="int4range",
+          )
+      )
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:weight_range)
+          .range_term("(3, 9]", relation: "Contains", range_type: "int4range")
+          .select(:id, :weight_range)
+  ```
+</CodeGroup>
+
+## Range Within
+
+The following query finds all ranges that contain the query range:
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT id, weight_range FROM mock_items
+  WHERE weight_range @@@ pdb.range_term('(2, 11]'::int4range, 'Within');
+  ```
+
+  ```python Django theme={null}
+  from paradedb import ParadeDB, RangeTerm
+
+  MockItem.objects.filter(
+      weight_range=ParadeDB(RangeTerm('(2, 11]', relation='Within', range_type='int4range'))
+  ).values('id', 'weight_range')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import search
+
+  stmt = (
+      select(MockItem.id, MockItem.weight_range)
+      .where(
+          search.range_term(
+              MockItem.weight_range,
+              "(2, 11]",
+              relation="Within",
+              range_type="int4range",
+          )
+      )
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:weight_range)
+          .range_term("(2, 11]", relation: "Within", range_type: "int4range")
+          .select(:id, :weight_range)
+  ```
+</CodeGroup>

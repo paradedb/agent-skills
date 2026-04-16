@@ -1,0 +1,95 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Limitations
+
+> Caveats for aggregate support
+
+## ParadeDB Operator
+
+In order for ParadeDB to push down an aggregate, a ParadeDB text search operator must be present in the query.
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  -- Not pushed down
+  SELECT COUNT(id) FROM mock_items
+  WHERE rating = 5;
+
+  -- Pushed down
+  SELECT COUNT(id) FROM mock_items
+  WHERE rating = 5
+  AND id @@@ pdb.all();
+  ```
+
+  ```python Django theme={null}
+  from paradedb import All, ParadeDB
+
+  # Not pushed down — no ParadeDB operator
+  MockItem.objects.filter(rating=5).count()
+
+  # Pushed down — ParadeDB operator triggers aggregate pushdown
+  MockItem.objects.filter(rating=5, id=ParadeDB(All())).count()
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import func, select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import search
+
+  # Not pushed down.
+  count_without_operator_stmt = select(func.count(MockItem.id)).where(MockItem.rating == 5)
+
+  # Pushed down.
+  count_with_operator_stmt = select(func.count(MockItem.id)).where(
+      MockItem.rating == 5,
+      search.all(MockItem.id),
+  )
+
+  with Session(engine) as session:
+      {
+          "count_without_operator": session.execute(count_without_operator_stmt).scalar_one(),
+          "count_with_operator": session.execute(count_with_operator_stmt).scalar_one(),
+      }
+  ```
+
+  ```ruby Rails theme={null}
+  # Not pushed down — no ParadeDB operator
+  MockItem.where(rating: 5).count
+
+  # Pushed down — ParadeDB operator triggers aggregate pushdown
+  MockItem.search(:id).match_all.where(rating: 5).count
+  ```
+</CodeGroup>
+
+If your query does not contain a ParadeDB operator, a way to "force" aggregate pushdown is to append the [all query](/documentation/query-builder/compound/all) to the query's
+`WHERE` clause.
+
+## Join Support
+
+ParadeDB is currently only able to push down aggregates over a single table. JOINs are not yet pushed down but are on the [roadmap](/welcome/roadmap).
+
+## NUMERIC Columns
+
+`NUMERIC` columns do not support aggregate pushdown. Queries with aggregates on `NUMERIC` columns will automatically fall back to PostgreSQL for aggregation.
+
+For numeric data that requires aggregate pushdown, use `FLOAT` or `DOUBLE PRECISION` instead:
+
+```sql theme={null}
+-- Aggregates can be pushed down
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    price DOUBLE PRECISION
+);
+
+-- Aggregates fall back to PostgreSQL
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    price NUMERIC(10,2)
+);
+```
+
+<Note>
+  Filter pushdown (equality and range queries) is fully supported for all
+  `NUMERIC` columns. Only aggregate pushdown is not supported.
+</Note>

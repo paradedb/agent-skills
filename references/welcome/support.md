@@ -1,0 +1,14 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Help and Support
+
+> How to obtain support for ParadeDB
+
+For questions regarding enterprise support or commercial licensing, please [contact sales](mailto:sales@paradedb.com).
+For community support and general questions, please join the [ParadeDB Community Slack](https://www.paradedb.com/slack).
+
+## Ask a Question
+
+Use the **"Ask a question..."** bar at the bottom of any page to get instant answers about ParadeDB. The AI assistant has full context of the documentation and can help with queries, troubleshooting, and best practices.

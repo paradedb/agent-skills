@@ -1,0 +1,130 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Query Parser
+
+> Accept raw user-provided query strings
+
+The parse query accepts a [Tantivy query string](https://docs.rs/tantivy/latest/tantivy/query/struct.QueryParser.html).
+The intended use case is for accepting raw query strings provided by the end user.
+
+To use it, pass the [key field](/documentation/indexing/create-index#choosing-a-key-field) to the left-hand side of `@@@` and `pdb.parse('<query>')` to the right-hand side.
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT description, rating, category FROM mock_items
+  WHERE id @@@ pdb.parse('description:(sleek shoes) AND rating:>3');
+  ```
+
+  ```python Django theme={null}
+  from paradedb import ParadeDB, Parse
+
+  MockItem.objects.filter(
+      id=ParadeDB(Parse('description:(sleek shoes) AND rating:>3'))
+  ).values('description', 'rating', 'category')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import search
+
+  stmt = (
+      select(MockItem.description, MockItem.rating, MockItem.category)
+      .where(search.parse(MockItem.id, "description:(sleek shoes) AND rating:>3"))
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:id)
+          .parse("description:(sleek shoes) AND rating:>3")
+          .select(:description, :rating, :category)
+  ```
+</CodeGroup>
+
+Please refer to the [Tantivy docs](https://docs.rs/tantivy/latest/tantivy/query/struct.QueryParser.html) for an overview of
+the query string language.
+
+## Lenient Parsing
+
+By default, strict syntax parsing is used. This means that if any part of the query does not conform to Tantivy’s query string syntax, the query fails. For instance, a valid field name must be provided before every query (i.e. `category:footwear`).
+By setting `lenient` to `true`, the query is executed on a best-effort basis. For example, if no field names are provided, the query is executed over all fields in the index.
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT description, rating, category FROM mock_items
+  WHERE id @@@ pdb.parse('description:(sleek shoes) AND rating:>3', lenient => true);
+  ```
+
+  ```python Django theme={null}
+  from paradedb import ParadeDB, Parse
+
+  MockItem.objects.filter(
+      id=ParadeDB(Parse('description:(sleek shoes) AND rating:>3', lenient=True))
+  ).values('description', 'rating', 'category')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import search
+
+  stmt = (
+      select(MockItem.description, MockItem.rating, MockItem.category)
+      .where(search.parse(MockItem.id, "description:(sleek shoes) AND rating:>3", lenient=True))
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:id)
+          .parse("description:(sleek shoes) AND rating:>3", lenient: true)
+          .select(:description, :rating, :category)
+  ```
+</CodeGroup>
+
+## Conjunction Mode
+
+By default, terms in the query string are `OR`ed together. With `conjunction_mode` set to `true`, they are instead `AND`ed together.
+For instance, the following query returns documents containing both `sleek` and `shoes`.
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT description, rating, category FROM mock_items
+  WHERE id @@@ pdb.parse('description:(sleek shoes)', conjunction_mode => true);
+  ```
+
+  ```python Django theme={null}
+  from paradedb import ParadeDB, Parse
+
+  MockItem.objects.filter(
+      id=ParadeDB(Parse('description:(sleek shoes)', conjunction_mode=True))
+  ).values('description', 'rating', 'category')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import search
+
+  stmt = (
+      select(MockItem.description, MockItem.rating, MockItem.category)
+      .where(search.parse(MockItem.id, "description:(sleek shoes)", conjunction_mode=True))
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:id)
+          .parse("description:(sleek shoes)", conjunction_mode: true)
+          .select(:description, :rating, :category)
+  ```
+</CodeGroup>

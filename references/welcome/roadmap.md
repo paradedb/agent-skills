@@ -1,0 +1,62 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Roadmap
+
+> The main features that we are currently working on
+
+We're a lean team that likes to ship at [incredibly high velocity](https://github.com/paradedb/paradedb/releases).
+
+## In Progress
+
+### JOIN Improvements
+
+* **Join pushdown (beta)**. [Join pushdown](/documentation/joins/overview) is available for `INNER`, `SEMI`, and `ANTI` joins, pushing search predicates directly into the index for significantly better performance.
+* **Scoring and highlighting across JOINs**. BM25 score and snippet functions can be used in `JOIN` queries.
+* **Smarter JOIN planning for search indexes**. Apply index-aware optimizations and cost estimation strategies when multiple BM25-indexed tables are joined.
+* **More join types for pushdown**. Extending pushdown support to `LEFT`, `RIGHT`, `FULL OUTER`, `CROSS`, and `LATERAL` joins.
+
+### Ecosystem Integrations
+
+* **ORMs**. Official support for more ORMs, like Prisma and others, is coming. [Django](https://github.com/paradedb/django-paradedb), [Rails](https://github.com/paradedb/rails-paradedb), and [SQLAlchemy](https://github.com/paradedb/sqlalchemy-paradedb) are already available.
+* **AI Frameworks**. Official support for LangChain, LLamaIndex, CrewAI, and others are coming.
+* **PaaS Providers**. Official tutorials for hosting ParadeDB on more platform-as-a-service providers like Porter.run and others is coming. [Railway](/deploy/cloud-platforms/railway), [Render](/deploy/cloud-platforms/render), and [DigitalOcean](/deploy/cloud-platforms/digitalocean) are already available.
+
+## Long Term
+
+### Deeper Analytics Improvements
+
+* **Push Postgres visibility rules into the index**. This is currently a filter applied post index scan that adds overhead to large scans.
+* **DataFusion-powered aggregates**. Migrate aggregate query execution from Tantivy to Apache DataFusion to broaden SQL aggregate coverage and improve performance.
+
+### Vector Search Improvements
+
+* Improve vector search performance in Postgres by addressing pgvector's limitations around filtered queries — specifically, queries that combine vector similarity with metadata filters or full-text search predicates.
+
+### Managed Cloud
+
+* Today, you can [deploy ParadeDB](/deploy/overview) self-hosted, on cloud platforms, or with ParadeDB BYOC. We are working on a fully managed cloud offering, with a focus on scalability and supporting distributed workloads.
+
+## Completed
+
+### Analytics
+
+* **A custom scan node for aggregates**. This will allow "plain SQL" aggregates to go through the same fast execution path as
+  our [aggregate UDFs](/documentation/aggregates/tantivy), further accelerating aggregates like `COUNT`, and SQL clauses like `GROUP BY`.
+
+### Write Throughput
+
+* **Background merging**. Improves write performance by merging index segments asynchronously without blocking inserts.
+* **Pending list**. Buffers recent write before flushing them to the LSM tree.
+
+### Improved UX
+
+* **More intuitive index configuration**. Overhaul the complicated JSON `WITH` index options.
+* **More ORM friendly**. Overhaul the [query builder functions](/documentation/query-builder/overview) to use actual column references instead of string literals.
+* **New operators**. In addition to the existing `@@@` operator, introduce new operators for different query types (e.g. phrase, term, conjunction/disjunction).
+
+## We're Hiring
+
+We're tackling some of the hardest and (in our opinion) most impactful problems in Postgres. If you want to be a part of it,
+please check out our [open roles](https://paradedb.notion.site)!

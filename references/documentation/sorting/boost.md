@@ -1,0 +1,235 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Relevance Tuning
+
+> Tune the BM25 score by adjusting the weights of individual queries
+
+## Boosting
+
+ParadeDB offers several ways to tune a document's [BM25 score](/documentation/sorting/score).
+The first is boosting, which increases or decreases the impact of a specific query by multiplying its contribution to the overall BM25 score.
+
+To boost a query, cast the query to the `boost` type. In this example, the `shoes` query is weighted twice as heavily as the `footwear` query.
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT id, pdb.score(id), description, category
+  FROM mock_items
+  WHERE description ||| 'shoes'::pdb.boost(2) OR category ||| 'footwear'
+  ORDER BY score DESC
+  LIMIT 5;
+  ```
+
+  ```python Django theme={null}
+  from django.db.models import Q
+  from paradedb import Match, ParadeDB, Score
+
+  MockItem.objects.filter(
+      Q(description=ParadeDB(Match('shoes', operator='OR', boost=2))) |
+      Q(category=ParadeDB(Match('footwear', operator='OR')))
+  ).annotate(
+      score=Score()
+  ).values('id', 'score', 'description', 'category').order_by('-score')[:5]
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import desc, or_, select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import pdb, search
+
+  stmt = (
+      select(
+          MockItem.id,
+          pdb.score(MockItem.id).label("score"),
+          MockItem.description,
+          MockItem.category,
+      )
+      .where(
+          or_(
+              search.match_any(MockItem.description, "shoes", boost=2.0),
+              search.match_any(MockItem.category, "footwear"),
+          )
+      )
+      .order_by(desc("score"))
+      .limit(5)
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:description)
+          .matching_any("shoes", boost: 2)
+          .or(MockItem.search(:category).matching_any("footwear"))
+          .with_score
+          .select(:id, :description, :category)
+          .order(search_score: :desc)
+          .limit(5)
+  ```
+</CodeGroup>
+
+`boost` takes a numeric value, which is the multiplicative boost factor. It can be any floating point number between `-2048` and `2048`.
+
+[Query builder functions](/documentation/query-builder/overview) can also be boosted:
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT id, description, category, pdb.score(id)
+  FROM mock_items
+  WHERE description @@@ pdb.regex('key.*')::pdb.boost(2)
+  ORDER BY score DESC
+  LIMIT 5;
+  ```
+
+  ```python Django theme={null}
+  from paradedb import ParadeDB, Regex, Score
+
+  MockItem.objects.filter(
+      description=ParadeDB(Regex('key.*', boost=2))
+  ).annotate(
+      score=Score()
+  ).values('id', 'description', 'category', 'score').order_by('-score')[:5]
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import desc, select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import pdb, search
+
+  stmt = (
+      select(
+          MockItem.id,
+          MockItem.description,
+          MockItem.category,
+          pdb.score(MockItem.id).label("score"),
+      )
+      .where(search.regex(MockItem.description, "key.*", boost=2.0))
+      .order_by(desc("score"))
+      .limit(5)
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:description)
+          .regex("key.*", boost: 2)
+          .with_score
+          .select(:id, :description, :category)
+          .order(search_score: :desc)
+          .limit(5)
+  ```
+</CodeGroup>
+
+Boost can be used in conjunction with other type casts, like [fuzzy](/documentation/full-text/fuzzy):
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT id, description, category, pdb.score(id)
+  FROM mock_items
+  WHERE description ||| 'shose'::pdb.fuzzy(2)::pdb.boost(2)
+  ORDER BY score DESC
+  LIMIT 5;
+  ```
+
+  ```python Django theme={null}
+  from paradedb import Match, ParadeDB, Score
+
+  MockItem.objects.filter(
+      description=ParadeDB(Match('shose', operator='OR', distance=2, boost=2))
+  ).annotate(
+      score=Score()
+  ).values('id', 'description', 'category', 'score').order_by('-score')[:5]
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import desc, select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import pdb, search
+
+  stmt = (
+      select(
+          MockItem.id,
+          MockItem.description,
+          MockItem.category,
+          pdb.score(MockItem.id).label("score"),
+      )
+      .where(search.match_any(MockItem.description, "shose", distance=2, boost=2.0))
+      .order_by(desc("score"))
+      .limit(5)
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:description)
+          .matching_any("shose", distance: 2, boost: 2)
+          .with_score
+          .select(:id, :description, :category)
+          .order(search_score: :desc)
+          .limit(5)
+  ```
+</CodeGroup>
+
+## Constant Scoring
+
+Constant scoring assigns the same score to all documents that match a query. To apply a constant score, cast the query to the `const` type with a
+numeric value.
+
+For instance, the following query assigns a score of `1` to all documents matching the query `shoes`.
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT id, pdb.score(id), description, category
+  FROM mock_items
+  WHERE description ||| 'shoes'::pdb.const(1)
+  ORDER BY score DESC
+  LIMIT 5;
+  ```
+
+  ```python Django theme={null}
+  from paradedb import Match, ParadeDB, Score
+
+  MockItem.objects.filter(
+      description=ParadeDB(Match('shoes', operator='OR', const=1))
+  ).annotate(
+      score=Score()
+  ).values('id', 'score', 'description', 'category').order_by('-score')[:5]
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import desc, select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import pdb, search
+
+  stmt = (
+      select(
+          MockItem.id,
+          pdb.score(MockItem.id).label("score"),
+          MockItem.description,
+          MockItem.category,
+      )
+      .where(search.match_any(MockItem.description, "shoes", const=1.0))
+      .order_by(desc("score"))
+      .limit(5)
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:description)
+          .matching_any("shoes", constant_score: 1)
+          .with_score
+          .select(:id, :description, :category)
+          .order(search_score: :desc)
+          .limit(5)
+  ```
+</CodeGroup>

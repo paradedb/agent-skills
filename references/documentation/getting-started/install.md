@@ -1,0 +1,39 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Install ParadeDB
+
+> How to run the ParadeDB Docker image
+
+The fastest way to install ParadeDB is by pulling the ParadeDB Docker image and running it locally. If
+your primary Postgres is in a virtual private cloud (VPC), we recommend deploying ParadeDB on a compute
+instance within your VPC to avoid exposing public IP addresses and needing to provision traffic routing
+rules.
+
+**Note**: ParadeDB supports Postgres 15+, and the `latest` tag ships with Postgres 18. To specify a different Postgres version, please refer to the available tags on [Docker Hub](https://hub.docker.com/r/paradedb/paradedb/tags).
+
+```bash theme={null}
+docker run \
+  --name paradedb \
+  -e POSTGRES_USER=myuser \
+  -e POSTGRES_PASSWORD=mypassword \
+  -e POSTGRES_DB=mydatabase \
+  -v paradedb_data:/var/lib/postgresql/ \
+  -p 5432:5432 \
+  -d \
+  paradedb/paradedb:latest
+```
+
+You may replace `myuser`, `mypassword`, and `mydatabase` with whatever values you want. These will be your database
+connection credentials.
+
+To connect to ParadeDB, run
+
+```bash theme={null}
+docker exec -it paradedb psql -U myuser -d mydatabase -W
+```
+
+To see all the ways in which you can install ParadeDB, please refer to our [deployment documentation](/deploy/overview).
+
+That's it! Next, let's [set up your environment](/documentation/getting-started/environment) so we can run a few queries.

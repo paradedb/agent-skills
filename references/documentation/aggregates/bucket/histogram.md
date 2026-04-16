@@ -1,0 +1,60 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Histogram
+
+> Count the number of occurrences over some interval
+
+The histogram aggregation dynamically creates buckets for a given `interval` and counts the number of occurrences
+in each bucket.
+
+Each value is rounded down to its bucket. For instance, a rating of `18` with an interval of `5` rounds down to a bucket
+with key `15`.
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT pdb.agg('{"histogram": {"field": "rating", "interval": "1"}}')
+  FROM mock_items
+  WHERE id @@@ pdb.all();
+  ```
+
+  ```python Django theme={null}
+  from paradedb import Agg, All, ParadeDB
+
+  MockItem.objects.filter(
+      id=ParadeDB(All())
+  ).aggregate(agg=Agg('{"histogram": {"field": "rating", "interval": "1"}}'))
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import facets, pdb, search
+
+  stmt = (
+      select(pdb.agg(facets.histogram(field="rating", interval=1)))
+      .select_from(MockItem)
+      .where(search.all(MockItem.id))
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:id)
+          .match_all
+          .facets_agg(agg: ParadeDB::Aggregations.histogram(:rating, interval: 1))
+  ```
+</CodeGroup>
+
+```ini Expected Response theme={null}
+                                                                                  agg
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ {"buckets": [{"key": 1.0, "doc_count": 1}, {"key": 2.0, "doc_count": 3}, {"key": 3.0, "doc_count": 9}, {"key": 4.0, "doc_count": 16}, {"key": 5.0, "doc_count": 12}]}
+(1 row)
+```
+
+See the [Tantivy documentation](https://docs.rs/tantivy/latest/tantivy/aggregation/bucket/struct.HistogramAggregation.html)
+for all available options.

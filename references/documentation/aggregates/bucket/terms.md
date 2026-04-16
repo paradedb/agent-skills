@@ -1,0 +1,127 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Terms
+
+> Count the number of occurrences for each value in a result set
+
+<Note>
+  If a text or JSON field is in the `GROUP BY` or `ORDER BY` clause, it must use
+  the [literal](/documentation/tokenizers/available-tokenizers/literal)
+  tokenizer.
+</Note>
+
+A terms aggregation counts the number of occurrences for every unique value in a field. For example, the following query
+groups the `mock_items` table by `rating`, and calculates the number of items for each unique `rating`.
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT rating, pdb.agg('{"value_count": {"field": "id"}}') FROM mock_items
+  WHERE id @@@ pdb.all()
+  GROUP BY rating
+  LIMIT 10;
+  ```
+
+  ```python Django theme={null}
+  from paradedb import Agg, All, ParadeDB
+
+  MockItem.objects.filter(
+      id=ParadeDB(All())
+  ).values('rating').annotate(
+      agg=Agg('{"value_count": {"field": "id"}}')
+  )[:10]
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import facets, pdb, search
+
+  stmt = (
+      select(MockItem.rating, pdb.agg(facets.value_count(field="id")).label("agg"))
+      .where(search.all(MockItem.id))
+      .group_by(MockItem.rating)
+      .limit(10)
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:id)
+          .match_all
+          .aggregate_by(
+            :rating,
+            agg: ParadeDB::Aggregations.value_count(:id)
+          )
+          .limit(10)
+  ```
+</CodeGroup>
+
+```ini Expected Response theme={null}
+ rating |       agg
+--------+-----------------
+      4 | {"value": 16.0}
+      5 | {"value": 12.0}
+      3 | {"value": 9.0}
+      2 | {"value": 3.0}
+      1 | {"value": 1.0}
+(5 rows)
+```
+
+Ordering by the bucketing field is supported:
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT rating, pdb.agg('{"value_count": {"field": "id"}}') FROM mock_items
+  WHERE id @@@ pdb.all()
+  GROUP BY rating
+  ORDER BY rating
+  LIMIT 10;
+  ```
+
+  ```python Django theme={null}
+  from paradedb import Agg, All, ParadeDB
+
+  MockItem.objects.filter(
+      id=ParadeDB(All())
+  ).values('rating').annotate(
+      agg=Agg('{"value_count": {"field": "id"}}')
+  ).order_by('rating')[:10]
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import facets, pdb, search
+
+  stmt = (
+      select(MockItem.rating, pdb.agg(facets.value_count(field="id")).label("agg"))
+      .where(search.all(MockItem.id))
+      .group_by(MockItem.rating)
+      .order_by(MockItem.rating)
+      .limit(10)
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:id)
+          .match_all
+          .aggregate_by(
+            :rating,
+            agg: ParadeDB::Aggregations.value_count(:id)
+          )
+          .order(:rating)
+          .limit(10)
+  ```
+</CodeGroup>
+
+<Note>Ordering by the aggregate value is not yet supported.</Note>
+
+For performance reasons, we strongly recommend adding a `LIMIT` to the `GROUP BY`. Terms aggregations without a `LIMIT` consume more memory and
+are slower to execute. If a query does not have a limit and more than `65000` unique values are found in a field, an error will be returned.

@@ -1,0 +1,85 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Reindexing
+
+> Rebuild an existing index with zero downtime
+
+## Changing the Schema
+
+If an index's schema is changed, it must be rebuilt. This includes:
+
+1. Adding a field to the index
+2. Removing a field from the index
+3. Renaming an indexed column in the underlying table
+4. Changing a field's tokenizer
+
+Let's assume the existing index is called `search_idx`, and we want to create a new index called `search_idx_v2`.
+First, use `CREATE INDEX CONCURRENTLY` to build a new index in the background.
+
+```sql theme={null}
+CREATE INDEX CONCURRENTLY search_idx_v2
+ON mock_items USING bm25 (id, description, category)
+WITH (key_field = 'id');
+```
+
+<Note>
+  The `CONCURRENTLY` clause is required. `CONCURRENTLY` allows the existing
+  index to continue serving queries while the new index is being built.
+</Note>
+
+From another session, you can use `pg_stat_progress_create_index` to [track the progress](/documentation/indexing/create-index#track-create-index-progress) of the new index.
+
+Once the new index is done building, confirm that it is valid:
+
+```sql theme={null}
+SELECT ix.indisvalid, ix.indisready, ix.indislive
+FROM pg_class i
+JOIN pg_index ix ON ix.indexrelid = i.oid
+WHERE i.relname = 'search_idx_v2';
+```
+
+```csv Expected Response theme={null}
+ indisvalid | indisready | indislive
+------------+------------+-----------
+ t          | t          | t
+(1 row)
+```
+
+If all three columns are `true`, the original index can safely be dropped, which will redirect queries to the new index.
+
+```sql theme={null}
+DROP INDEX search_idx;
+```
+
+## Rebuilding the Index
+
+`REINDEX` is used to rebuild an index without changing the schema.
+The basic syntax for `REINDEX` is:
+
+```sql theme={null}
+REINDEX INDEX search_idx;
+```
+
+This operation takes an exclusive lock on the table, which blocks incoming writes (but not reads) while the new index is being built.
+
+To allow for concurrent writes during a reindex, use `REINDEX CONCURRENTLY`:
+
+```sql theme={null}
+REINDEX INDEX CONCURRENTLY search_idx;
+```
+
+The tradeoff is that `REINDEX CONCURRENTLY` is slower than a plain `REINDEX`. Generally speaking, `REINDEX CONCURRENTLY` is recommended for
+production systems that cannot tolerate temporarily blocked writes.
+
+## Important Caveats
+
+Although `CREATE INDEX CONCURRENTLY` and `REINDEX CONURRENTLY` run in the background, Postgres requires that the
+session that is executing the command remain open. If the session is closed,
+Postgres will cancel the operation. This is relevant if you are using a
+connection pooler like `pgbouncer`, which may terminate
+sessions after a certain idle timeout is reached.
+
+If `REINDEX CONCURRENTLY` fails or is cancelled, an invalid transient index will be left behind that must be dropped manually.
+To check for invalid indexes in `psql`, run `\d <table_name>` and look for `INVALID` indexes.

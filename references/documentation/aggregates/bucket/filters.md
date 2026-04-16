@@ -1,0 +1,83 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Filters
+
+> Compute aggregations over multiple filters in one query
+
+The filters aggregation allows a single query to return aggregations for multiple search queries at a time.
+To use this aggregation, pass `pdb.agg` to the left-hand side of `FILTER` and a search query to the right-hand side.
+For example:
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT
+      pdb.agg('{"value_count": {"field": "id"}}')
+      FILTER (WHERE category === 'electronics') AS electronics_count,
+      pdb.agg('{"value_count": {"field": "id"}}')
+      FILTER (WHERE category === 'footwear') AS footwear_count
+  FROM mock_items;
+  ```
+
+  ```python Django theme={null}
+  from django.db.models import Q
+  from paradedb import Agg, ParadeDB, Term
+
+  MockItem.objects.aggregate(
+      electronics_count=Agg(
+          '{"value_count": {"field": "id"}}',
+          filter=Q(category=ParadeDB(Term('electronics'))),
+      ),
+      footwear_count=Agg(
+          '{"value_count": {"field": "id"}}',
+          filter=Q(category=ParadeDB(Term('footwear'))),
+      ),
+  )
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import facets, pdb, search
+
+  stmt = select(
+      pdb.agg(facets.value_count(field="id"))
+      .filter(search.term(MockItem.category, "electronics"))
+      .label("electronics_count"),
+      pdb.agg(facets.value_count(field="id"))
+      .filter(search.term(MockItem.category, "footwear"))
+      .label("footwear_count"),
+  ).select_from(MockItem)
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  result = MockItem.facets_agg(
+    electronics_count: ParadeDB::Aggregations.filtered(
+      ParadeDB::Aggregations.value_count(:id),
+      field: :category,
+      term: "electronics"
+    ),
+    footwear_count: ParadeDB::Aggregations.filtered(
+      ParadeDB::Aggregations.value_count(:id),
+      field: :category,
+      term: "footwear"
+    )
+  )
+  ```
+</CodeGroup>
+
+<Note>
+  Use lowercase `electronics` and `footwear`. The default BM25 tokenizer
+  lowercases terms, so `Electronics` and `Footwear` would not match here.
+</Note>
+
+```ini Expected Response theme={null}
+ electronics_count | footwear_count
+-------------------+----------------
+ {"value": 5.0}    | {"value": 6.0}
+(1 row)
+```

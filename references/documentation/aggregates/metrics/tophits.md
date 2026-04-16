@@ -1,0 +1,206 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Top Hits
+
+> Compute the top hits for each bucket in a terms aggregation
+
+The top hits aggregation is meant to be used in conjunction with the [terms](/documentation/aggregates/bucket/terms)
+aggregation. It returns the top documents for each bucket of a terms aggregation.
+
+For example, the following query answers "what are top 3 results sorted by `created_at` for each
+`rating` category?"
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT pdb.agg('{"top_hits": {"size": 3, "sort": [{"created_at": "desc"}], "docvalue_fields": ["id", "created_at"]}}')
+  FROM mock_items
+  WHERE id @@@ pdb.all()
+  GROUP BY rating;
+  ```
+
+  ```python Django theme={null}
+  from paradedb import Agg, All, ParadeDB
+
+  MockItem.objects.filter(
+      id=ParadeDB(All())
+  ).values('rating').annotate(
+      agg=Agg('{"top_hits": {"size": 3, "sort": [{"created_at": "desc"}], "docvalue_fields": ["id", "created_at"]}}')
+  ).values('agg')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import facets, pdb, search
+
+  stmt = (
+      select(
+          pdb.agg(
+              facets.top_hits(
+                  size=3,
+                  sort=[{"created_at": "desc"}],
+                  docvalue_fields=["id", "created_at"],
+              )
+          )
+      )
+      .select_from(MockItem)
+      .where(search.all(MockItem.id))
+      .group_by(MockItem.rating)
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:id)
+          .match_all
+          .aggregate_by(
+            :rating,
+            agg: ParadeDB::Aggregations.top_hits(
+              size: 3,
+              sort: [{ created_at: "desc" }],
+              docvalue_fields: %w[id created_at]
+            )
+          )
+  ```
+</CodeGroup>
+
+```ini Expected Response theme={null}
+      agg
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ {"hits": [{"sort": [10907000251854775808], "docvalue_fields": {"id": [25], "created_at": ["2023-05-09T10:30:15Z"]}}, {"sort": [10906844884854775808], "docvalue_fields": {"id": [26], "created_at": ["2023-05-07T15:20:48Z"]}}, {"sort": [10906666358854775808], "docvalue_fields": {"id": [13], "created_at": ["2023-05-05T13:45:22Z"]}}]}
+ {"hits": [{"sort": [10906756363854775808], "docvalue_fields": {"id": [24], "created_at": ["2023-05-06T14:45:27Z"]}}, {"sort": [10906385295854775808], "docvalue_fields": {"id": [28], "created_at": ["2023-05-02T07:40:59Z"]}}, {"sort": [10906236353854775808], "docvalue_fields": {"id": [29], "created_at": ["2023-04-30T14:18:37Z"]}}]}
+ {"hits": [{"sort": [10906480573854775808], "docvalue_fields": {"id": [17], "created_at": ["2023-05-03T10:08:57Z"]}}, {"sort": [10906315942854775808], "docvalue_fields": {"id": [20], "created_at": ["2023-05-01T12:25:06Z"]}}, {"sort": [10906218361854775808], "docvalue_fields": {"id": [8], "created_at": ["2023-04-30T09:18:45Z"]}}]}
+ {"hits": [{"sort": [10906573359854775808], "docvalue_fields": {"id": [27], "created_at": ["2023-05-04T11:55:23Z"]}}, {"sort": [10905961160854775808], "docvalue_fields": {"id": [15], "created_at": ["2023-04-27T09:52:04Z"]}}, {"sort": [10905202003854775808], "docvalue_fields": {"id": [7], "created_at": ["2023-04-18T14:59:27Z"]}}]}
+ {"hits": [{"sort": [10906586188854775808], "docvalue_fields": {"id": [10], "created_at": ["2023-05-04T15:29:12Z"]}}]}
+(5 rows)
+```
+
+The `sort` value returned by the aggregation is Tantivy's internal sort ID and should be ignored.
+To get the actual fields, pass a list of fields to `docvalue_fields`.
+
+If a text or JSON field is passed to `docvalue_fields`, it must be indexed with the [literal](/documentation/tokenizers/available-tokenizers/literal)
+or [literal normalized](/documentation/tokenizers/available-tokenizers/literal-normalized) tokenizer.
+
+To specify an offset, use `from`:
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT pdb.agg('{"top_hits": {"size": 3, "from": 1, "sort": [{"created_at": "desc"}], "docvalue_fields": ["id", "created_at"]}}')
+  FROM mock_items
+  WHERE id @@@ pdb.all()
+  GROUP BY rating;
+  ```
+
+  ```python Django theme={null}
+  from paradedb import Agg, All, ParadeDB
+
+  MockItem.objects.filter(
+      id=ParadeDB(All())
+  ).values('rating').annotate(
+      agg=Agg('{"top_hits": {"size": 3, "from": 1, "sort": [{"created_at": "desc"}], "docvalue_fields": ["id", "created_at"]}}')
+  ).values('agg')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import facets, pdb, search
+
+  stmt = (
+      select(
+          pdb.agg(
+              facets.top_hits(
+                  size=3,
+                  from_=1,
+                  sort=[{"created_at": "desc"}],
+                  docvalue_fields=["id", "created_at"],
+              )
+          )
+      )
+      .select_from(MockItem)
+      .where(search.all(MockItem.id))
+      .group_by(MockItem.rating)
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:id)
+          .match_all
+          .aggregate_by(
+            :rating,
+            agg: ParadeDB::Aggregations.top_hits(
+              size: 3,
+              from: 1,
+              sort: [{ created_at: "desc" }],
+              docvalue_fields: %w[id created_at]
+            )
+          )
+  ```
+</CodeGroup>
+
+If multiple fields are passed into `sort`, the additional fields are used as tiebreakers:
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT pdb.agg('{"top_hits": {"size": 3, "sort": [{"created_at": "desc"}, {"id": "asc"}], "docvalue_fields": ["id", "created_at"]}}')
+  FROM mock_items
+  WHERE id @@@ pdb.all()
+  GROUP BY rating;
+  ```
+
+  ```python Django theme={null}
+  from paradedb import Agg, All, ParadeDB
+
+  MockItem.objects.filter(
+      id=ParadeDB(All())
+  ).values('rating').annotate(
+      agg=Agg('{"top_hits": {"size": 3, "sort": [{"created_at": "desc"}, {"id": "asc"}], "docvalue_fields": ["id", "created_at"]}}')
+  ).values('agg')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import facets, pdb, search
+
+  stmt = (
+      select(
+          pdb.agg(
+              facets.top_hits(
+                  size=3,
+                  sort=[{"created_at": "desc"}, {"id": "asc"}],
+                  docvalue_fields=["id", "created_at"],
+              )
+          )
+      )
+      .select_from(MockItem)
+      .where(search.all(MockItem.id))
+      .group_by(MockItem.rating)
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:id)
+          .match_all
+          .aggregate_by(
+            :rating,
+            agg: ParadeDB::Aggregations.top_hits(
+              size: 3,
+              sort: [{ created_at: "desc" }, { id: "asc" }],
+              docvalue_fields: %w[id created_at]
+            )
+          )
+  ```
+</CodeGroup>
+
+See the [Tantivy documentation](https://docs.rs/tantivy/latest/tantivy/aggregation/metric/struct.TopHitsAggregationReq.html) for all available options.

@@ -19,7 +19,7 @@ Use this skill when users ask about:
 - Tokenizers, analyzers, fuzzy matching, and phrase queries
 - Facets, aggregations, snippets/highlighting, and query tuning
 
-This skill contains the ParadeDB documentation in `references/docs.md`. Always read the relevant documentation
+This skill contains the ParadeDB documentation in the `references` folder. Always read the relevant documentation
 before answering a user's question.
 
 ## Response Guidelines

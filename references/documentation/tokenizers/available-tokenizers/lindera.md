@@ -1,0 +1,61 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Lindera
+
+> Uses prebuilt dictionaries to tokenize Chinese, Japanese, and Korean text
+
+The Lindera tokenizer is a more advanced CJK tokenizer that uses prebuilt Chinese, Japanese, or Korean dictionaries to break text into meaningful tokens (words or phrases) rather than on individual characters.
+Chinese Lindera uses the CC-CEDICT dictionary, Korean Lindera uses the KoDic dictionary, and Japanese Lindera uses the IPADIC dictionary.
+
+By default, non-CJK text is lowercased, and punctuation is not ignored.
+As of version 0.22.4, whitespace is removed by default. On earlier versions it is preserved.
+
+<CodeGroup>
+  ```sql Chinese Lindera theme={null}
+  CREATE INDEX search_idx ON mock_items
+  USING bm25 (id, (description::pdb.lindera(chinese)))
+  WITH (key_field='id');
+  ```
+
+  ```sql Korean Lindera theme={null}
+  CREATE INDEX search_idx ON mock_items
+  USING bm25 (id, (description::pdb.lindera(korean)))
+  WITH (key_field='id');
+  ```
+
+  ```sql Japanese Lindera theme={null}
+  CREATE INDEX search_idx ON mock_items
+  USING bm25 (id, (description::pdb.lindera(japanese)))
+  WITH (key_field='id');
+  ```
+</CodeGroup>
+
+To get a feel for this tokenizer, run the following command and replace the text with your own:
+
+```sql theme={null}
+SELECT 'Hello world! 你好!'::pdb.lindera(chinese)::text[];
+```
+
+```ini Expected Response theme={null}
+              text
+------------------------
+ {hello,world,!,你好,!}
+(1 row)
+```
+
+## Keep Whitespace
+
+By default, whitespace is not tokenized. To include it, set `keep_whitespace` to `true`.
+
+```sql theme={null}
+SELECT 'Hello world! 你好!'::pdb.lindera(chinese, 'keep_whitespace=true')::text[];
+```
+
+```ini Expected Response theme={null}
+              text
+--------------------------------
+ {hello," ",world,!," ",你好,!}
+(1 row)
+```

@@ -1,0 +1,70 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Regex
+
+> Searches for terms that match a regex pattern
+
+Regex queries search for terms that follow a pattern. For example, the wildcard pattern `key.*` finds all terms that start with `key`.
+
+<CodeGroup>
+  ```sql SQL theme={null}
+  SELECT description, rating, category
+  FROM mock_items
+  WHERE description @@@ pdb.regex('key.*');
+  ```
+
+  ```python Django theme={null}
+  from paradedb import ParadeDB, Regex
+
+  MockItem.objects.filter(
+      description=ParadeDB(Regex('key.*'))
+  ).values('description', 'rating', 'category')
+  ```
+
+  ```python SQLAlchemy theme={null}
+  from sqlalchemy import select
+  from sqlalchemy.orm import Session
+  from paradedb.sqlalchemy import search
+
+  stmt = (
+      select(MockItem.description, MockItem.rating, MockItem.category)
+      .where(search.regex(MockItem.description, "key.*"))
+  )
+
+  with Session(engine) as session:
+      session.execute(stmt).all()
+  ```
+
+  ```ruby Rails theme={null}
+  MockItem.search(:description)
+          .regex("key.*")
+          .select(:description, :rating, :category)
+  ```
+</CodeGroup>
+
+ParadeDB supports all regex constructs of the Rust [regex](https://docs.rs/regex/latest/regex/) crate, with the following exceptions:
+
+1. Lazy quantifiers such as `+?`
+2. Word boundaries such as `\b`
+
+Otherwise, the full syntax of the [regex](https://docs.rs/regex/latest/regex/) crate is supported, including all Unicode support and relevant flags.
+
+A list of regex flags and grouping options can be [found here](https://docs.rs/regex/latest/regex/#grouping-and-flags), which includes:
+
+* named and numbered capture groups
+* case insensitivty flag (`i`)
+* multi-line mode (`m`)
+
+<Note>
+  Regex queries operate at the token level. To execute regex over the original
+  text, use the keyword tokenizer.
+</Note>
+
+## Performance Considerations
+
+During a regex query, ParadeDB doesn't scan through every single word. Instead, it uses a highly optimized structure called a [finite state transducer (FST)](https://en.wikipedia.org/wiki/Finite-state_transducer) that makes it possible to jump straight to the matching terms.
+Even if the index contains millions of words, the regex query only looks at the ones that have a chance of matching, skipping everything else.
+
+This is why the certain regex constructs are not supported -- they are difficult to implement efficiently.

@@ -1,0 +1,60 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.paradedb.com/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Indexing Expressions
+
+> Add Postgres expressions to the index
+
+In addition to indexing columns, Postgres expressions can also be indexed.
+
+## Indexing Text/JSON Expressions
+
+The following statement indexes an expression which concatenates `description` and `category`, which are both text fields:
+
+```sql theme={null}
+CREATE INDEX search_idx ON mock_items
+USING bm25 (id, ((description || ' ' || category)::pdb.simple('alias=description_concat')))
+WITH (key_field='id');
+```
+
+To index a text/JSON expression:
+
+1. Add the expression to the column list. In this example, the expression is `description || ' ' || category`.
+2. Cast it to a [tokenizer](/documentation/tokenizers/overview), in this example `pdb.simple`.
+3. ParadeDB will try and infer a field name based on the field used in the expression. However,
+   if the field name cannot be inferred (e.g. because the expression involves more than one field), you will be required
+   to add an `alias=<alias_name>` to the tokenizer.
+
+Querying against the expression is the same as querying a regular field:
+
+```sql theme={null}
+SELECT description, rating, category
+FROM mock_items
+WHERE (description || ' ' || category) &&& 'running shoes';
+```
+
+<Note>
+  The expression on the left-hand side of the operator must exactly match the
+  expression that was indexed.
+</Note>
+
+## Indexing Non-Text Expressions
+
+To index a non-text expression, cast the expression to `pdb.alias`. For example, the following statement indexes
+the expression `rating + 1`, which returns an integer:
+
+```sql theme={null}
+CREATE INDEX search_idx ON mock_items
+USING bm25 (id, description, ((rating + 1)::pdb.alias('rating')))
+WITH (key_field='id');
+```
+
+With the expression indexed, queries containing the expression can be pushed down to the ParadeDB index:
+
+```sql theme={null}
+SELECT description, rating, category
+FROM mock_items
+WHERE description &&& 'running shoes'
+AND rating + 1 > 3;
+```

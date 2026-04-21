@@ -19,24 +19,33 @@ Use this skill when users ask about:
 - Tokenizers, analyzers, fuzzy matching, and phrase queries
 - Facets, aggregations, snippets/highlighting, and query tuning
 
-For up-to-date ParadeDB documentation, always fetch the documentation index:
+For up-to-date ParadeDB documentation, always fetch the documentation index
+(`llms.txt`) using the bundled script at `scripts/paradedb-docs`.
+Resolve that path relative to the directory containing this `SKILL.md`, not
+relative to the current working directory or repo root.
 
-**[https://raw.githubusercontent.com/paradedb/paradedb/refs/heads/improve-claude-skill-usage/docs-index.json](https://raw.githubusercontent.com/paradedb/paradedb/refs/heads/improve-claude-skill-usage/docs-index.json)**. 
+```bash
+scripts/paradedb-docs llms.txt
+```
 
-Use your web-fetching tool to retrieve current docs before answering ParadeDB
-questions. Treat behavior claims as version-dependent until verified.
+Once you have the list of urls, load the pages necessary to answer the user's question. For example:
+```bash
+scripts/paradedb-docs documentation/getting-started/environment.md
+scripts/paradedb-docs documentation/full-text/match.md
+scripts/paradedb-docs documentation/indexing/create-index.md
+# etc
+```
 
-## Documentation Fetch Policy
+After a successful fetch, treat that content as cached session context and
+reuse it for later ParadeDB questions in the same session if applicable.
+Do not refetch on every turn when the previously fetched docs are still
+available and relevant.
 
-1. On the first ParadeDB question in a session, fetch `docs-index.json` using your web fetch tool (not curl) to get the full list
-   of documentation URLs available on `https://docs.paradedb.com/`. **DO NOT SUMMARIZE THIS FILE**. If it does not contain the URLs, you'll need to fetch it again.
-   Do not silently proceed if you don't get the full content; keep trying until you have the URLs.
-2. Fetch every doc page relevant to the user's question using the exact URLs from docs-index.json,
-   again requesting the **raw, verbatim content** of each page.
-3. After a successful fetch, treat that content as cached session context and
-   reuse it for later ParadeDB questions in the same session if applicable.
-4. Do not refetch on every turn when the previously fetched docs are still
-   available and relevant.
+The tool uses curl internally and requires network access. Make sure you run it with network access.
+If you have to ask the user for permission to run the tool, make sure to ask them to allow you to run
+the command for all arguments so you can fetch every page.
+
+Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentation.
 
 ## Response Guidelines
 
@@ -49,7 +58,7 @@ questions. Treat behavior claims as version-dependent until verified.
 
 ## Network Failure Rules (Mandatory)
 
-If `llms.txt` (or any required docs URL) cannot be fetched due to DNS/network/access errors:
+If any documentation cannot be fetched due to DNS/network/access errors:
 
 1. State clearly that live docs could not be accessed and include the actual error.
 2. If you have cached session docs from an earlier successful fetch, say that

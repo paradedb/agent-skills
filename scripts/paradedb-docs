@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <doc-path>" >&2
+  echo "Example: $0 welcome/introduction.md" >&2
+  exit
+fi
+
+DOC_PATH=$1
+
+if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
+  echo "Error: doc path must end in .md or .txt" >&2
+  exit 1
+fi
+
+curl -fsSL "https://docs.paradedb.com/$DOC_PATH"

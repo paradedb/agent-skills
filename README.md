@@ -1,8 +1,6 @@
 # ParadeDB Agent Skill
 
-An AI agent skill for [ParadeDB](https://paradedb.com) - Elasticsearch-quality full-text search in Postgres.
-
-Once installed, the skill activates when you ask your agent about:
+An AI agent skill for [ParadeDB](https://paradedb.com) - Elasticsearch-quality full-text search in Postgres. Once installed, the skill activates when you ask your agent about:
 
 - ParadeDB
 - BM25 indexing
@@ -58,19 +56,15 @@ directory (for example, `.claude/skills/paradedb-skill`).
 ## Implementation
 
 Instead of bundling static docs that can become stale, this skill instructs agents to fetch the latest ParadeDB docs to answer your questions.
-The skill includes a tiny script wrapping `curl` that allows the agent to fetch only the documentation. This approach ensures the agent sees the
-full content of docs instead of a summarized view and makes it easy to allow fetching the docs freely without also granting full access to `curl`.
-This is the script:
+The skill includes a tiny script called `scripts/paradedb-docs` that allows the agent to fetch only the documentation using `curl`. This approach ensures the agent sees the
+full content of docs instead of a summarized view and makes it easy to allow the agent to fetch the docs freely without also granting it unrestricted access to `curl`.
+
+This is the [script](./scripts/paradedb-docs):
+
 ```bash
 #!/bin/bash
 
 set -euo pipefail
-
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <doc-path>" >&2
-  echo "Example: $0 welcome/introduction.md" >&2
-  exit
-fi
 
 DOC_PATH=$1
 

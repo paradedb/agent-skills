@@ -2,12 +2,6 @@
 
 set -euo pipefail
 
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <doc-path>" >&2
-  echo "Example: $0 welcome/introduction.md" >&2
-  exit
-fi
-
 DOC_PATH=$1
 
 if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then

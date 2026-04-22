@@ -54,7 +54,7 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
 3. If behavior is uncertain, call it out explicitly instead of guessing.
 4. Do not generate any of the deprecated syntax. The new syntax was released in
    version 0.20.0 and should be used exclusively unless the user requests the old syntax.
-   If a query contains `paradedb` it is using the old syntax. use `pdb` instead.
+   If a query contains `paradedb`, it is using the old syntax. Use `pdb` instead.
 
 ## Network Failure Rules (Mandatory)
 

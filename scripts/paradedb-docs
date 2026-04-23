@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -euo pipefail
+
+DOC_PATH=$1
+
+if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
+  echo "Error: doc path must end in .md or .txt" >&2
+  exit 1
+fi
+
+curl -fsSL "https://docs.paradedb.com/$DOC_PATH"

@@ -19,38 +19,46 @@ Use this skill when users ask about:
 - Tokenizers, analyzers, fuzzy matching, and phrase queries
 - Facets, aggregations, snippets/highlighting, and query tuning
 
-For complete and up-to-date ParadeDB documentation, always fetch:
+For up-to-date ParadeDB documentation, always fetch the documentation index
+(`llms.txt`) using the bundled script at `scripts/paradedb-docs`.
+Resolve that path relative to the directory containing this `SKILL.md`, not
+relative to the current working directory or repo root.
 
-**[https://docs.paradedb.com/llms-full.txt](https://docs.paradedb.com/llms-full.txt)**
+```bash
+scripts/paradedb-docs llms.txt
+```
 
-Use your web-fetching tool to retrieve current docs before answering ParadeDB
-questions. Treat behavior claims as version-dependent until verified.
+Once you have the list of urls, load the pages necessary to answer the user's question. For example:
+```bash
+scripts/paradedb-docs documentation/getting-started/environment.md
+scripts/paradedb-docs documentation/full-text/match.md
+scripts/paradedb-docs documentation/indexing/create-index.md
+# etc
+```
 
-## Documentation Fetch Policy
+After a successful fetch, treat that content as cached session context and
+reuse it for later ParadeDB questions in the same session if applicable.
+Do not refetch on every turn when the previously fetched docs are still
+available and relevant.
 
-1. On the first ParadeDB question in a session, fetch `llms-full.txt`.
-2. After a successful fetch, treat that content as cached session context and
-   reuse it for later ParadeDB questions in the same session.
-3. Do not refetch on every turn when the previously fetched docs are still
-   available and relevant.
-4. Refresh the docs only when one of these is true:
-   - the user asks for a refresh or re-fetch
-   - the question depends on very recent/current changes
-   - the needed content was not included in the earlier fetch
-   - session context appears lost, truncated, or unavailable
-   - the earlier fetch failed or looked incomplete
+The tool uses curl internally and requires network access. Make sure you run it with network access.
+If you have to ask the user for permission to run the tool, make sure to ask them to allow you to run
+the command for all arguments so you can fetch every page.
+
+Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentation.
 
 ## Response Guidelines
 
 1. Prefer runnable SQL examples over prose-only answers.
 2. State ParadeDB/Postgres version assumptions when syntax may differ.
-3. Say when you are relying on cached session docs versus a fresh fetch if that
-   matters to the answer.
-4. If behavior is uncertain, call it out explicitly instead of guessing.
+3. If behavior is uncertain, call it out explicitly instead of guessing.
+4. Do not generate any of the deprecated syntax. The new syntax was released in
+   version 0.20.0 and should be used exclusively unless the user requests the old syntax.
+   If a query contains `paradedb`, it is using the old syntax. Use `pdb` instead.
 
 ## Network Failure Rules (Mandatory)
 
-If `llms-full.txt` (or any required docs URL) cannot be fetched due to DNS/network/access errors:
+If any documentation cannot be fetched due to DNS/network/access errors:
 
 1. State clearly that live docs could not be accessed and include the actual error.
 2. If you have cached session docs from an earlier successful fetch, say that

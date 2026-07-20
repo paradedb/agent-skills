@@ -26,7 +26,7 @@
 
 # ParadeDB Agent Skill
 
-An AI agent skill for [ParadeDB](https://paradedb.com) - Elasticsearch-quality full-text search, vector retrieval, and aggregations in Postgres. Once installed, the skill activates when you ask your agent about:
+An AI agent skill for [ParadeDB](https://paradedb.com) - One Postgres for your application data, full-text search, vector retrieval, and aggregations.. Once installed, the skill activates when you ask your agent about:
 
 - ParadeDB
 - BM25 indexing

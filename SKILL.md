@@ -9,8 +9,7 @@ description: >
 
 # ParadeDB Skill
 
-ParadeDB adds Elasticsearch-quality full-text search, vector retrieval, and
-aggregations to Postgres via the `pg_search` extension.
+ParadeDB is one Postgres that unifies your application data, full-text search, vector retrieval, and aggregations via the `pg_search` extension.
 
 Use this skill when users ask about:
 

@@ -92,7 +92,7 @@ How do I check with EXPLAIN that my vector query is using TopKScanExecState inst
 
 My vector results change between runs. How do I make the ordering deterministic?
 
-How do I tune paradedb.vector_cluster_max_probe to trade recall against latency?
+How do I tune Paradedb to trade recall against latency?
 
 What do centroid_ratio, training_samples_per_centroid, and cluster_replication do at index build time?
 

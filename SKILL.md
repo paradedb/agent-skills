@@ -27,9 +27,6 @@ relative to the current working directory or repo root.
 scripts/paradedb-docs llms.txt
 ```
 
-Doc paths always end in `.md`, even though the pages are authored as `.mdx` in the
-`paradedb/paradedb` repository. Requesting `.mdx` returns a 404.
-
 Once you have the list of urls, load the pages necessary to answer the user's question. For example:
 ```bash
 scripts/paradedb-docs documentation/getting-started/environment.md

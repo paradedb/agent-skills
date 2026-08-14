@@ -1,10 +1,10 @@
 ---
 name: paradedb-skill
 description: >
-  Expert guidance on ParadeDB full-text search, hybrid search (BM25 + semantic),
-  aggregations, and analytics in Postgres. Use when writing ParadeDB queries,
-  creating BM25 indexes, configuring tokenizers, or implementing
-  Elasticsearch-quality search in Postgres.
+  Expert guidance on ParadeDB full-text search, vector search, hybrid search
+  (BM25 + semantic), aggregations, and analytics in Postgres. Use when writing
+  ParadeDB queries, creating ParadeDB indexes, indexing vectors, configuring
+  tokenizers, or implementing Elasticsearch-quality search in Postgres.
 ---
 
 # ParadeDB Skill
@@ -13,10 +13,10 @@ ParadeDB is one Postgres that unifies your application data, full-text search, v
 
 Use this skill when users ask about:
 
-- BM25 indexes and relevance ranking
-- Hybrid search (keyword + semantic vectors via `pgvector`)
-- Tokenizers, analyzers, fuzzy matching, and phrase queries
-- Facets, aggregations, snippets/highlighting, and query tuning
+- ParadeDB indexes, BM25 scoring, and relevance ranking
+- Vector search and hybrid search (keyword + semantic, fused with reciprocal rank fusion)
+- Tokenizers, token filters, fuzzy matching, and phrase queries
+- Facets, aggregations, snippets/highlighting, joins, and query tuning
 
 For up-to-date ParadeDB documentation, always fetch the documentation index
 (`llms.txt`) using the bundled script at `scripts/paradedb-docs`.
@@ -54,6 +54,11 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
 4. Do not generate any of the deprecated syntax. The new syntax was released in
    version 0.20.0 and should be used exclusively unless the user requests the old syntax.
    If a query contains `paradedb`, it is using the old syntax. Use `pdb` instead.
+5. Vector search runs inside the ParadeDB index as of version 0.25.0, where it is a beta
+   feature. ParadeDB indexes pgvector's `vector` type, but does not use pgvector's HNSW or
+   IVFFlat indexes — do not suggest them for a vector column that is in a ParadeDB index.
+   Fetch `documentation/indexing/indexing-vectors.md` and `documentation/vector/querying.md`
+   before writing vector queries, and `documentation/hybrid/rrf.md` before writing hybrid ones.
 
 ## Network Failure Rules (Mandatory)
 

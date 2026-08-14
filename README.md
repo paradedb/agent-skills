@@ -31,11 +31,12 @@ An AI agent skill for [ParadeDB](https://paradedb.com) - One Postgres for your a
 - ParadeDB
 - BM25 indexing
 - Full-text search in Postgres
+- Vector and hybrid search in Postgres
 - Elasticsearch alternatives for Postgres
 
 > [!NOTE]
 > ParadeDB also supports MCP integrations. For setup instructions, use
-> [https://docs.paradedb.com/welcome/ai-agents](https://docs.paradedb.com/welcome/ai-agents).
+> [https://docs.paradedb.com/documentation/getting-started/ai-agents](https://docs.paradedb.com/documentation/getting-started/ai-agents).
 > The `/mcp` route is a protocol endpoint, not a human-readable docs page.
 
 ## Installation
@@ -109,7 +110,7 @@ See [EXAMPLES.md](EXAMPLES.md) for categorized prompt examples.
 ## Links
 
 - [ParadeDB Documentation](https://docs.paradedb.com)
-- [ParadeDB AI Agents Guide](https://docs.paradedb.com/welcome/ai-agents)
+- [ParadeDB AI Agents Guide](https://docs.paradedb.com/documentation/getting-started/ai-agents)
 - [LLM-Optimized Docs](https://docs.paradedb.com/llms-full.txt)
 - [ParadeDB GitHub](https://github.com/paradedb/paradedb)
 

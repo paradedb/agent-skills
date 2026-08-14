@@ -2,11 +2,19 @@
 
 set -euo pipefail
 
-DOC_PATH=$1
+DOC_PATH=${1:-}
 
-if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
-  echo "Error: doc path must end in .md or .txt" >&2
+if [[ -z "$DOC_PATH" ]]; then
+  echo "Usage: paradedb-docs <doc-path>    e.g. paradedb-docs documentation/full-text/match.md" >&2
   exit 1
 fi
 
-curl -fsSL "https://docs.paradedb.com/$DOC_PATH"
+# The docs are authored as .mdx in paradedb/paradedb, but docs.paradedb.com serves
+# each page as .md and 404s on .mdx. Requesting a page with no extension returns the
+# rendered HTML page, which is far larger and harder to read. So: .md or .txt only.
+if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
+  echo "Error: doc path must end in .md or .txt (the docs site serves .md, not .mdx)" >&2
+  exit 1
+fi
+
+curl -fsSL --max-time 30 --retry 2 "https://docs.paradedb.com/$DOC_PATH"

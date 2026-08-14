@@ -53,17 +53,29 @@ npx skills add paradedb/agent-skills
 
 Use this path when `npx skills add` is unavailable.
 
-> [!TIP]
-> Directory conventions below were verified on **March 3, 2026**.
+Most agents now read the cross-agent `.agents/skills` convention, so a single install covers them:
 
-| Agent       | Global directory                                      | Project directory                        |
-| ----------- | ----------------------------------------------------- | ---------------------------------------- |
-| Claude Code | `~/.claude/skills`                                    | `.claude/skills`                         |
-| OpenCode    | `~/.config/opencode/skills` (or `~/.opencode/skills`) | `.opencode/skills`                       |
-| Cursor      | `~/.cursor/skills`                                    | `.cursor/skills`                         |
-| Amp         | `~/.config/agents/skills`                             | `.agents/skills`                         |
-| Windsurf    | `~/.codeium/windsurf/skills`                          | `.windsurf/skills`                       |
-| Codex       | `$CODEX_HOME/skills`                                  | Set `CODEX_HOME` to a project-local path |
+| Directory          | Scope                      | Read by                                                                           |
+| ------------------ | -------------------------- | --------------------------------------------------------------------------------- |
+| `.agents/skills`   | This project               | Codex, Cursor, Copilot, Gemini CLI, Amp, OpenCode, Devin Desktop, and many others |
+| `~/.agents/skills` | All projects, current user | The same set, minus Amp (see below)                                               |
+
+Agents that also, or only, read their own directory:
+
+| Agent                   | Global directory             | Project directory  |
+| ----------------------- | ---------------------------- | ------------------ |
+| Claude Code             | `~/.claude/skills`           | `.claude/skills`   |
+| Cursor                  | `~/.cursor/skills`           | `.cursor/skills`   |
+| OpenCode                | `~/.config/opencode/skills`  | `.opencode/skills` |
+| Amp                     | `~/.config/agents/skills`    | `.agents/skills`   |
+| Codex                   | `~/.agents/skills`           | `.agents/skills`   |
+| Devin CLI               | `~/.config/devin/skills`     | `.devin/skills`    |
+| Windsurf, Devin Desktop | `~/.codeium/windsurf/skills` | `.windsurf/skills` |
+
+> [!TIP]
+> Directory conventions above were verified on **August 14, 2026**. `npx skills add`
+> supports 76 agents; see [vercel-labs/skills](https://github.com/vercel-labs/skills#supported-agents)
+> for the full, maintained list.
 
 Install the skill in the directory that matches your agent. For example, for Claude:
 
@@ -78,7 +90,7 @@ chmod +x "$TARGET_DIR/scripts/paradedb-docs"
 ```
 
 For project-local installs, change `TARGET_DIR` to the corresponding project
-directory (for example, `.claude/skills/paradedb-skill`).
+directory (for example, `.agents/skills/paradedb-skill` or `.claude/skills/paradedb-skill`).
 
 ## Implementation
 
@@ -93,15 +105,23 @@ This is the [script](./scripts/paradedb-docs):
 
 set -euo pipefail
 
-DOC_PATH=$1
+DOC_PATH=${1:-}
 
-if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
-  echo "Error: doc path must end in .md or .txt" >&2
+if [[ -z "$DOC_PATH" ]]; then
+  echo "Usage: paradedb-docs <doc-path>    e.g. paradedb-docs documentation/full-text/match.md" >&2
   exit 1
 fi
 
-curl -fsSL "https://docs.paradedb.com/$DOC_PATH"
-``` 
+# The docs are authored as .mdx in paradedb/paradedb, but docs.paradedb.com serves
+# each page as .md and 404s on .mdx. Requesting a page with no extension returns the
+# rendered HTML page, which is far larger and harder to read. So: .md or .txt only.
+if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
+  echo "Error: doc path must end in .md or .txt (the docs site serves .md, not .mdx)" >&2
+  exit 1
+fi
+
+curl -fsSL --max-time 30 --retry 2 "https://docs.paradedb.com/$DOC_PATH"
+```
 
 ### Example Prompts
 

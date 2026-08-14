@@ -27,6 +27,9 @@ relative to the current working directory or repo root.
 scripts/paradedb-docs llms.txt
 ```
 
+Doc paths always end in `.md`, even though the pages are authored as `.mdx` in the
+`paradedb/paradedb` repository. Requesting `.mdx` returns a 404.
+
 Once you have the list of urls, load the pages necessary to answer the user's question. For example:
 ```bash
 scripts/paradedb-docs documentation/getting-started/environment.md
@@ -49,7 +52,9 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
 ## Response Guidelines
 
 1. Prefer runnable SQL examples over prose-only answers.
-2. State ParadeDB/Postgres version assumptions when syntax may differ.
+2. State ParadeDB/Postgres version assumptions when syntax may differ. Several features are
+   version gated, so when you have database access and the answer depends on one, check
+   first with `SELECT extversion FROM pg_extension WHERE extname = 'pg_search';`.
 3. If behavior is uncertain, call it out explicitly instead of guessing.
 4. Do not generate any of the deprecated syntax. The new syntax was released in
    version 0.20.0 and should be used exclusively unless the user requests the old syntax.

@@ -62,15 +62,15 @@ Most agents now read the cross-agent `.agents/skills` convention, so a single in
 
 Agents that also, or only, read their own directory:
 
-| Agent                   | Global directory             | Project directory  |
-| ----------------------- | ---------------------------- | ------------------ |
-| Claude Code             | `~/.claude/skills`           | `.claude/skills`   |
-| Cursor                  | `~/.cursor/skills`           | `.cursor/skills`   |
-| OpenCode                | `~/.config/opencode/skills`  | `.opencode/skills` |
-| Amp                     | `~/.config/agents/skills`    | `.agents/skills`   |
-| Codex                   | `~/.agents/skills`           | `.agents/skills`   |
-| Devin CLI               | `~/.config/devin/skills`     | `.devin/skills`    |
-| Windsurf, Devin Desktop | `~/.codeium/windsurf/skills` | `.windsurf/skills` |
+| Agent                             | Global directory             | Project directory  |
+| --------------------------------- | ---------------------------- | ------------------ |
+| Claude Code                       | `~/.claude/skills`           | `.claude/skills`   |
+| Cursor                            | `~/.cursor/skills`           | `.cursor/skills`   |
+| OpenCode                          | `~/.config/opencode/skills`  | `.opencode/skills` |
+| Amp                               | `~/.config/agents/skills`    | `.agents/skills`   |
+| Codex                             | `~/.agents/skills`           | `.agents/skills`   |
+| Devin CLI                         | `~/.config/devin/skills`     | `.devin/skills`    |
+| Devin Desktop (formerly Windsurf) | `~/.codeium/windsurf/skills` | `.windsurf/skills` |
 
 > [!TIP]
 > Directory conventions above were verified on **August 14, 2026**. `npx skills add`

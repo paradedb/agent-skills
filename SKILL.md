@@ -49,7 +49,9 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
 ## Response Guidelines
 
 1. Prefer runnable SQL examples over prose-only answers.
-2. State ParadeDB/Postgres version assumptions when syntax may differ.
+2. State ParadeDB/Postgres version assumptions when syntax may differ. Some features are only
+   available in newer versions, so when you have database access and the answer depends on
+   one, check first with `SELECT extversion FROM pg_extension WHERE extname = 'pg_search';`.
 3. If behavior is uncertain, call it out explicitly instead of guessing.
 4. Do not generate any of the deprecated syntax. The new syntax was released in
    version 0.20.0 and should be used exclusively unless the user requests the old syntax.

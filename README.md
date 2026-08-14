@@ -53,19 +53,26 @@ npx skills add paradedb/agent-skills
 
 Use this path when `npx skills add` is unavailable.
 
+Install the skill in the directory that matches your agent. Every agent below except Claude Code
+also reads the cross-agent `.agents/skills` convention, as do Copilot, Gemini CLI and many others,
+so installing there covers most of them at once.
+
+| Agent                             | Global directory             | Project directory  |
+| --------------------------------- | ---------------------------- | ------------------ |
+| Claude Code                       | `~/.claude/skills`           | `.claude/skills`   |
+| Codex                             | `~/.agents/skills`           | `.agents/skills`   |
+| Cursor                            | `~/.cursor/skills`           | `.cursor/skills`   |
+| OpenCode                          | `~/.config/opencode/skills`  | `.opencode/skills` |
+| Devin Desktop (formerly Windsurf) | `~/.codeium/windsurf/skills` | `.windsurf/skills` |
+| Devin CLI                         | `~/.config/devin/skills`     | `.devin/skills`    |
+| Any other agent                   | `~/.agents/skills`           | `.agents/skills`   |
+
 > [!TIP]
-> Directory conventions below were verified on **March 3, 2026**.
+> Directory conventions above were verified on **August 14, 2026**. `npx skills add`
+> supports 76 agents; see [vercel-labs/skills](https://github.com/vercel-labs/skills#supported-agents)
+> for the full, maintained list.
 
-| Agent       | Global directory                                      | Project directory                        |
-| ----------- | ----------------------------------------------------- | ---------------------------------------- |
-| Claude Code | `~/.claude/skills`                                    | `.claude/skills`                         |
-| OpenCode    | `~/.config/opencode/skills` (or `~/.opencode/skills`) | `.opencode/skills`                       |
-| Cursor      | `~/.cursor/skills`                                    | `.cursor/skills`                         |
-| Amp         | `~/.config/agents/skills`                             | `.agents/skills`                         |
-| Windsurf    | `~/.codeium/windsurf/skills`                          | `.windsurf/skills`                       |
-| Codex       | `$CODEX_HOME/skills`                                  | Set `CODEX_HOME` to a project-local path |
-
-Install the skill in the directory that matches your agent. For example, for Claude:
+For example, for Claude Code:
 
 ```bash
 TARGET_DIR="$HOME/.claude/skills/paradedb-skill"
@@ -78,7 +85,7 @@ chmod +x "$TARGET_DIR/scripts/paradedb-docs"
 ```
 
 For project-local installs, change `TARGET_DIR` to the corresponding project
-directory (for example, `.claude/skills/paradedb-skill`).
+directory (for example, `.agents/skills/paradedb-skill` or `.claude/skills/paradedb-skill`).
 
 ## Implementation
 

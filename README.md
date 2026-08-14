@@ -53,14 +53,9 @@ npx skills add paradedb/agent-skills
 
 Use this path when `npx skills add` is unavailable.
 
-Most agents now read the cross-agent `.agents/skills` convention, so a single install covers them:
-
-| Directory          | Scope                      | Read by                                                                           |
-| ------------------ | -------------------------- | --------------------------------------------------------------------------------- |
-| `.agents/skills`   | This project               | Codex, Cursor, OpenCode, Devin Desktop, Amp, Copilot, Gemini CLI, and many others |
-| `~/.agents/skills` | All projects, current user | The same set, minus Amp (see below)                                               |
-
-Agents that also, or only, read their own directory:
+Install the skill in the directory that matches your agent. Every agent below except Claude Code
+also reads the cross-agent `.agents/skills` convention, as do Copilot, Gemini CLI and many others,
+so installing there covers most of them at once.
 
 | Agent                             | Global directory             | Project directory  |
 | --------------------------------- | ---------------------------- | ------------------ |
@@ -70,14 +65,14 @@ Agents that also, or only, read their own directory:
 | OpenCode                          | `~/.config/opencode/skills`  | `.opencode/skills` |
 | Devin Desktop (formerly Windsurf) | `~/.codeium/windsurf/skills` | `.windsurf/skills` |
 | Devin CLI                         | `~/.config/devin/skills`     | `.devin/skills`    |
-| Amp                               | `~/.config/agents/skills`    | `.agents/skills`   |
+| Any other agent                   | `~/.agents/skills`           | `.agents/skills`   |
 
 > [!TIP]
 > Directory conventions above were verified on **August 14, 2026**. `npx skills add`
 > supports 76 agents; see [vercel-labs/skills](https://github.com/vercel-labs/skills#supported-agents)
 > for the full, maintained list.
 
-Install the skill in the directory that matches your agent. For example, for Claude:
+For example, for Claude Code:
 
 ```bash
 TARGET_DIR="$HOME/.claude/skills/paradedb-skill"

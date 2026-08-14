@@ -57,7 +57,7 @@ Most agents now read the cross-agent `.agents/skills` convention, so a single in
 
 | Directory          | Scope                      | Read by                                                                           |
 | ------------------ | -------------------------- | --------------------------------------------------------------------------------- |
-| `.agents/skills`   | This project               | Codex, Cursor, Copilot, Gemini CLI, Amp, OpenCode, Devin Desktop, and many others |
+| `.agents/skills`   | This project               | Codex, Cursor, OpenCode, Devin Desktop, Amp, Copilot, Gemini CLI, and many others |
 | `~/.agents/skills` | All projects, current user | The same set, minus Amp (see below)                                               |
 
 Agents that also, or only, read their own directory:
@@ -65,12 +65,12 @@ Agents that also, or only, read their own directory:
 | Agent                             | Global directory             | Project directory  |
 | --------------------------------- | ---------------------------- | ------------------ |
 | Claude Code                       | `~/.claude/skills`           | `.claude/skills`   |
+| Codex                             | `~/.agents/skills`           | `.agents/skills`   |
 | Cursor                            | `~/.cursor/skills`           | `.cursor/skills`   |
 | OpenCode                          | `~/.config/opencode/skills`  | `.opencode/skills` |
-| Amp                               | `~/.config/agents/skills`    | `.agents/skills`   |
-| Codex                             | `~/.agents/skills`           | `.agents/skills`   |
-| Devin CLI                         | `~/.config/devin/skills`     | `.devin/skills`    |
 | Devin Desktop (formerly Windsurf) | `~/.codeium/windsurf/skills` | `.windsurf/skills` |
+| Devin CLI                         | `~/.config/devin/skills`     | `.devin/skills`    |
+| Amp                               | `~/.config/agents/skills`    | `.agents/skills`   |
 
 > [!TIP]
 > Directory conventions above were verified on **August 14, 2026**. `npx skills add`

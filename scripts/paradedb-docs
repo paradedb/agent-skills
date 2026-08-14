@@ -2,16 +2,11 @@
 
 set -euo pipefail
 
-DOC_PATH=${1:-}
-
-if [[ -z "$DOC_PATH" ]]; then
-  echo "Usage: paradedb-docs <doc-path>    e.g. paradedb-docs documentation/full-text/match.md" >&2
-  exit 1
-fi
+DOC_PATH=$1
 
 if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
-  echo "Error: doc path must end in .md or .txt (the docs site serves .md, not .mdx)" >&2
+  echo "Error: doc path must end in .md or .txt" >&2
   exit 1
 fi
 
-curl -fsSL --max-time 30 --retry 2 "https://docs.paradedb.com/$DOC_PATH"
+curl -fsSL "https://docs.paradedb.com/$DOC_PATH"

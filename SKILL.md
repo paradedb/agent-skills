@@ -54,7 +54,12 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
 4. Do not generate any of the deprecated syntax. The new syntax was released in
    version 0.20.0 and should be used exclusively unless the user requests the old syntax.
    If a query contains `paradedb`, it is using the old syntax. Use `pdb` instead.
-5. Vector search runs inside the ParadeDB index as of version 0.25.0, where it is a beta
+5. In version 0.25.0, the BM25 index was renamed to the ParadeDB index, because it now
+   powers vector search, aggregates, top K and filtering as well as BM25 scoring. Write
+   `CREATE INDEX ... USING paradedb`, not `USING bm25`, which survives only as a
+   backwards-compatible alias, and call it the ParadeDB index. Reserve "BM25" for the
+   scoring function itself.
+6. Vector search runs inside the ParadeDB index as of version 0.25.0, where it is a beta
    feature. ParadeDB indexes pgvector's `vector` type, but does not use pgvector's HNSW or
    IVFFlat indexes — do not suggest them for a vector column that is in a ParadeDB index.
    Fetch `documentation/indexing/indexing-vectors.md` and `documentation/vector/querying.md`

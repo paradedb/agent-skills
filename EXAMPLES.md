@@ -17,7 +17,7 @@ Which Postgres settings should I change before running ParadeDB in production?
 ## Indexing
 
 ```text
-Create a BM25 index for full-text search on my products table
+Create a ParadeDB index for full-text search on my products table
 
 How do I index a JSON column so I can search and filter on nested fields?
 
@@ -41,7 +41,7 @@ How do I implement fuzzy search with ParadeDB?
 
 Write a ParadeDB query to search across multiple text fields
 
-How do I add phrase queries to my BM25 search?
+How do I add phrase queries to my full-text search?
 
 What's the difference between a match query and a term query, and when should I use each?
 

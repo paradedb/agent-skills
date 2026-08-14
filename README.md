@@ -29,7 +29,7 @@
 An AI agent skill for [ParadeDB](https://paradedb.com) - One Postgres for your application data, full-text search, vector retrieval, and aggregations.. Once installed, the skill activates when you ask your agent about:
 
 - ParadeDB
-- BM25 indexing
+- ParadeDB indexing and BM25 scoring
 - Full-text search in Postgres
 - Vector and hybrid search in Postgres
 - Elasticsearch alternatives for Postgres

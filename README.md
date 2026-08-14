@@ -112,9 +112,6 @@ if [[ -z "$DOC_PATH" ]]; then
   exit 1
 fi
 
-# The docs are authored as .mdx in paradedb/paradedb, but docs.paradedb.com serves
-# each page as .md and 404s on .mdx. Requesting a page with no extension returns the
-# rendered HTML page, which is far larger and harder to read. So: .md or .txt only.
 if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
   echo "Error: doc path must end in .md or .txt (the docs site serves .md, not .mdx)" >&2
   exit 1

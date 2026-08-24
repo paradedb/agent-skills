@@ -16,10 +16,10 @@
 
 <h3 align="center">
   <a href="https://paradedb.com">Website</a> &bull;
-  <a href="https://docs.paradedb.com">Docs</a> &bull;
+  <a href="https://paradedb.com/docs">Docs</a> &bull;
   <a href="https://paradedb.com/slack">Community</a> &bull;
   <a href="https://paradedb.com/blog/">Blog</a> &bull;
-  <a href="https://docs.paradedb.com/changelog/">Changelog</a>
+  <a href="https://paradedb.com/docs/changelog/">Changelog</a>
 </h3>
 
 ---
@@ -36,7 +36,7 @@ An AI agent skill for [ParadeDB](https://paradedb.com) - One Postgres for your a
 
 > [!NOTE]
 > ParadeDB also supports MCP integrations. For setup instructions, use
-> [https://docs.paradedb.com/documentation/getting-started/ai-agents](https://docs.paradedb.com/documentation/getting-started/ai-agents).
+> [https://paradedb.com/docs/documentation/getting-started/ai-agents](https://paradedb.com/docs/documentation/getting-started/ai-agents).
 > The `/mcp` route is a protocol endpoint, not a human-readable docs page.
 
 ## Installation
@@ -107,7 +107,7 @@ if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
   exit 1
 fi
 
-curl -fsSL "https://docs.paradedb.com/$DOC_PATH"
+curl -fsSL "https://paradedb.com/docs/$DOC_PATH"
 ``` 
 
 ### Example Prompts
@@ -116,9 +116,9 @@ See [EXAMPLES.md](EXAMPLES.md) for categorized prompt examples.
 
 ## Links
 
-- [ParadeDB Documentation](https://docs.paradedb.com)
-- [ParadeDB AI Agents Guide](https://docs.paradedb.com/documentation/getting-started/ai-agents)
-- [LLM-Optimized Docs](https://docs.paradedb.com/llms-full.txt)
+- [ParadeDB Documentation](https://paradedb.com/docs)
+- [ParadeDB AI Agents Guide](https://paradedb.com/docs/documentation/getting-started/ai-agents)
+- [LLM-Optimized Docs](https://paradedb.com/docs/llms-full.txt)
 - [ParadeDB GitHub](https://github.com/paradedb/paradedb)
 
 ## License

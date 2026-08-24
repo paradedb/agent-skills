@@ -9,4 +9,4 @@ if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
   exit 1
 fi
 
-curl -fsSL "https://docs.paradedb.com/$DOC_PATH"
+curl -fsSL "https://paradedb.com/docs/$DOC_PATH"

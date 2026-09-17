@@ -9,9 +9,10 @@
   <br>
 </h1>
 
+<h2 align="center">Just use Postgres.</h2>
+
 <p align="center">
-  <b>Just use Postgres.</b><br/>
-  One Postgres for your application data, full-text search, vector retrieval, and aggregations.
+  Fast text and vector search, filters, facets, and joins in Postgres.
 </p>
 
 <h3 align="center">
@@ -26,12 +27,13 @@
 
 # ParadeDB Agent Skill
 
-An AI agent skill for [ParadeDB](https://paradedb.com) - One Postgres for your application data, full-text search, vector retrieval, and aggregations. Once installed, the skill activates when you ask your agent about:
+An AI agent skill for [ParadeDB](https://paradedb.com), which makes text and vector search, filters, facets, and joins fast in Postgres. Once installed, the skill activates when you ask your agent about:
 
 - ParadeDB
 - ParadeDB indexing and BM25 scoring
 - Full-text search in Postgres
 - Vector and hybrid search in Postgres
+- Filters, facets, joins, and aggregations
 - Elasticsearch alternatives for Postgres
 
 > [!NOTE]
@@ -107,8 +109,8 @@ if [[ "$DOC_PATH" != *.md && "$DOC_PATH" != *.txt ]]; then
   exit 1
 fi
 
-curl -fsSL "https://paradedb.com/docs/$DOC_PATH"
-``` 
+curl -fsSL "https://www.paradedb.com/docs/$DOC_PATH"
+```
 
 ### Example Prompts
 

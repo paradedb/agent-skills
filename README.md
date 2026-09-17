@@ -10,23 +10,23 @@
 </h1>
 
 <p align="center">
-  <b>Search without a second system.</b><br/>
+  <b>Just use Postgres.</b><br/>
   One Postgres for your application data, full-text search, vector retrieval, and aggregations.
 </p>
 
 <h3 align="center">
   <a href="https://paradedb.com">Website</a> &bull;
-  <a href="https://paradedb.com/docs">Docs</a> &bull;
+  <a href="https://www.paradedb.com/docs/start/introduction">Docs</a> &bull;
   <a href="https://paradedb.com/slack">Community</a> &bull;
   <a href="https://paradedb.com/blog/">Blog</a> &bull;
-  <a href="https://paradedb.com/docs/changelog/">Changelog</a>
+  <a href="https://www.paradedb.com/docs/project/changelog">Changelog</a>
 </h3>
 
 ---
 
 # ParadeDB Agent Skill
 
-An AI agent skill for [ParadeDB](https://paradedb.com) - One Postgres for your application data, full-text search, vector retrieval, and aggregations.. Once installed, the skill activates when you ask your agent about:
+An AI agent skill for [ParadeDB](https://paradedb.com) - One Postgres for your application data, full-text search, vector retrieval, and aggregations. Once installed, the skill activates when you ask your agent about:
 
 - ParadeDB
 - ParadeDB indexing and BM25 scoring
@@ -36,7 +36,7 @@ An AI agent skill for [ParadeDB](https://paradedb.com) - One Postgres for your a
 
 > [!NOTE]
 > ParadeDB also supports MCP integrations. For setup instructions, use
-> [https://paradedb.com/docs/documentation/getting-started/ai-agents](https://paradedb.com/docs/documentation/getting-started/ai-agents).
+> [https://www.paradedb.com/docs/start/ai-agents](https://www.paradedb.com/docs/start/ai-agents).
 > The `/mcp` route is a protocol endpoint, not a human-readable docs page.
 
 ## Installation
@@ -116,9 +116,9 @@ See [EXAMPLES.md](EXAMPLES.md) for categorized prompt examples.
 
 ## Links
 
-- [ParadeDB Documentation](https://paradedb.com/docs)
-- [ParadeDB AI Agents Guide](https://paradedb.com/docs/documentation/getting-started/ai-agents)
-- [LLM-Optimized Docs](https://paradedb.com/docs/llms-full.txt)
+- [ParadeDB Documentation](https://www.paradedb.com/docs/start/introduction)
+- [ParadeDB AI Agents Guide](https://www.paradedb.com/docs/start/ai-agents)
+- [LLM-Optimized Docs](https://www.paradedb.com/docs/llms-full.txt)
 - [ParadeDB GitHub](https://github.com/paradedb/paradedb)
 
 ## License

@@ -73,6 +73,8 @@ How do I combine a full-text search with filters on numeric, boolean, and timest
 
 Why is my filter not being pushed down into the ParadeDB index, and how do I confirm with EXPLAIN?
 
+How do I combine ParadeDB search with PostGIS or ltree filters backed by another index?
+
 How do I filter on a field whose values are case-sensitive when the default tokenizer lowercases everything?
 ```
 
@@ -92,7 +94,7 @@ How do I check with EXPLAIN that my vector query is using TopKScanExecState inst
 
 My vector results change between runs. How do I make the ordering deterministic?
 
-How do I tune Paradedb to trade recall against latency?
+How do I tune ParadeDB to trade recall against latency?
 
 What do centroid_ratio, training_samples_per_centroid, and cluster_replication do at index build time?
 
@@ -229,6 +231,10 @@ How do I run ParadeDB alongside Citus?
 What are the best practices for scaling ParadeDB in production?
 
 How do I monitor and tune ParadeDB performance?
+
+Which SQL functions can I use to inspect my ParadeDB indexes?
+
+How do I inspect and test ParadeDB runtime settings for my current session?
 
 How do I speed up index creation on a large table?
 

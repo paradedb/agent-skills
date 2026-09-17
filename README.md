@@ -27,7 +27,7 @@
 
 # ParadeDB Agent Skill
 
-An AI agent skill for [ParadeDB](https://paradedb.com), which makes text and vector search, filters, facets, and joins fast in Postgres. Once installed, the skill activates when you ask your agent about:
+An AI agent skill for [ParadeDB](https://paradedb.com) — fast text and vector search, filters, facets, and joins in Postgres. Once installed, the skill activates when you ask your agent about:
 
 - ParadeDB
 - ParadeDB indexing and BM25 scoring

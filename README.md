@@ -55,23 +55,24 @@ npx skills add paradedb/agent-skills
 
 Use this path when `npx skills add` is unavailable.
 
-Install the skill in the directory that matches your agent. Every agent below except Claude Code
-also reads the cross-agent `.agents/skills` convention, as do Copilot, Gemini CLI and many others,
-so installing there covers most of them at once.
+Install the skill in the directory that matches your agent. Several agents share
+the project-local `.agents/skills` directory, but global directories vary.
 
-| Agent                             | Global directory             | Project directory  |
-| --------------------------------- | ---------------------------- | ------------------ |
-| Claude Code                       | `~/.claude/skills`           | `.claude/skills`   |
-| Codex                             | `~/.agents/skills`           | `.agents/skills`   |
-| Cursor                            | `~/.cursor/skills`           | `.cursor/skills`   |
-| OpenCode                          | `~/.config/opencode/skills`  | `.opencode/skills` |
-| Devin Desktop (formerly Windsurf) | `~/.codeium/windsurf/skills` | `.windsurf/skills` |
-| Devin CLI                         | `~/.config/devin/skills`     | `.devin/skills`    |
-| Any other agent                   | `~/.agents/skills`           | `.agents/skills`   |
+| Agent          | Global directory            | Project directory  |
+| -------------- | --------------------------- | ------------------ |
+| Claude Code    | `~/.claude/skills`          | `.claude/skills`   |
+| Codex          | `~/.agents/skills`          | `.agents/skills`   |
+| Cursor         | `~/.cursor/skills`          | `.cursor/skills`   |
+| Devin          | `~/.config/devin/skills`    | `.devin/skills`    |
+| Gemini CLI     | `~/.gemini/skills`          | `.agents/skills`   |
+| GitHub Copilot | `~/.copilot/skills`         | `.agents/skills`   |
+| Grok Build     | `~/.grok/skills`            | `.grok/skills`     |
+| OpenCode       | `~/.config/opencode/skills` | `.opencode/skills` |
+| Warp           | `~/.agents/skills`          | `.agents/skills`   |
 
 > [!TIP]
-> Directory conventions above were verified on **August 14, 2026**. `npx skills add`
-> supports 76 agents; see [vercel-labs/skills](https://github.com/vercel-labs/skills#supported-agents)
+> Added directories were last checked against the installer on **September 24, 2026**.
+> See [vercel-labs/skills](https://github.com/vercel-labs/skills#supported-agents)
 > for the full, maintained list.
 
 For example, for Claude Code:

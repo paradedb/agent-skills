@@ -58,17 +58,17 @@ Use this path when `npx skills add` is unavailable.
 Install the skill in the directory that matches your agent. Several agents share
 the project-local `.agents/skills` directory, but global directories vary.
 
-| Agent                   | Global directory            | Project directory  |
-| ----------------------- | --------------------------- | ------------------ |
-| Claude Code             | `~/.claude/skills`          | `.claude/skills`   |
-| Codex                   | `~/.agents/skills`          | `.agents/skills`   |
-| Cursor                  | `~/.cursor/skills`          | `.cursor/skills`   |
-| OpenCode                | `~/.config/opencode/skills` | `.opencode/skills` |
-| Devin (Desktop and CLI) | `~/.config/devin/skills`    | `.devin/skills`    |
-| Grok Build              | `~/.grok/skills`            | `.grok/skills`     |
-| GitHub Copilot          | `~/.copilot/skills`         | `.agents/skills`   |
-| Gemini CLI              | `~/.gemini/skills`          | `.agents/skills`   |
-| Warp                    | `~/.agents/skills`          | `.agents/skills`   |
+| Agent          | Global directory            | Project directory  |
+| -------------- | --------------------------- | ------------------ |
+| Claude Code    | `~/.claude/skills`          | `.claude/skills`   |
+| Codex          | `~/.agents/skills`          | `.agents/skills`   |
+| Cursor         | `~/.cursor/skills`          | `.cursor/skills`   |
+| OpenCode       | `~/.config/opencode/skills` | `.opencode/skills` |
+| Devin          | `~/.config/devin/skills`    | `.devin/skills`    |
+| Grok Build     | `~/.grok/skills`            | `.grok/skills`     |
+| GitHub Copilot | `~/.copilot/skills`         | `.agents/skills`   |
+| Gemini CLI     | `~/.gemini/skills`          | `.agents/skills`   |
+| Warp           | `~/.agents/skills`          | `.agents/skills`   |
 
 > [!TIP]
 > Added directories were checked against the installer and [Devin documentation](https://docs.devin.ai/desktop/cascade/skills) on **September 24, 2026**.

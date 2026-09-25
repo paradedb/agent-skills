@@ -51,28 +51,6 @@ npx skills add paradedb/agent-skills
 
 `npx skills add` is the most stable installation path because the installer keeps up with agent-specific directory conventions.
 
-To install for a specific agent, pass its installer name, for example:
-
-```bash
-npx skills add paradedb/agent-skills --agent grok
-```
-
-Here, `grok` selects Grok Build. For Grok Bot, use the instructions below.
-
-### Grok Bot
-
-Grok Bot supports [private skills shared across your Bots](https://docs.x.ai/grok-bot/skills-routines-and-automations).
-Give your Bot this repository URL and ask:
-
-```text
-Create a private ParadeDB skill from https://github.com/paradedb/agent-skills.
-Use SKILL.md as the instructions and include scripts/paradedb-docs alongside it,
-preserving the directory structure. Verify that the bundled script can fetch llms.txt.
-```
-
-Check that the skill appears under **Marketplace → Your plugins → Manage plugins and skills → Private skills**,
-then reference it with `/` in a conversation.
-
 ### Manual Installation (Fallback)
 
 Use this path when `npx skills add` is unavailable.
@@ -80,36 +58,22 @@ Use this path when `npx skills add` is unavailable.
 Install the skill in the directory that matches your agent. Several agents share
 the project-local `.agents/skills` directory, but global directories vary.
 
-| Agent                             | Global directory                | Project directory  |
-| --------------------------------- | ------------------------------- | ------------------ |
-| Claude Code                       | `~/.claude/skills`              | `.claude/skills`   |
-| Codex                             | `~/.agents/skills`              | `.agents/skills`   |
-| Cursor                            | `~/.cursor/skills`              | `.cursor/skills`   |
-| OpenCode                          | `~/.config/opencode/skills`     | `.opencode/skills` |
-| Devin Desktop (formerly Windsurf) | `~/.codeium/windsurf/skills`    | `.windsurf/skills` |
-| Devin CLI                         | `~/.config/devin/skills`        | `.devin/skills`    |
-| Grok Build                        | `~/.grok/skills`                | `.grok/skills`     |
-| GitHub Copilot                    | `~/.copilot/skills`             | `.agents/skills`   |
-| Gemini CLI                        | `~/.gemini/skills`              | `.agents/skills`   |
-| Antigravity                       | `~/.gemini/antigravity/skills`  | `.agents/skills`   |
-| Amp                               | `~/.config/agents/skills`       | `.agents/skills`   |
-| Cline                             | `~/.agents/skills`              | `.agents/skills`   |
-| Factory Droid                     | `~/.factory/skills`             | `.agents/skills`   |
-| Kilo Code                         | `~/.kilo/skills`                | `.agents/skills`   |
-| Kimi Code CLI                     | `~/.agents/skills`              | `.agents/skills`   |
-| Kiro CLI                          | `~/.kiro/skills`                | `.kiro/skills`     |
-| Roo Code                          | `~/.roo/skills`                 | `.roo/skills`      |
-| Continue                          | `~/.continue/skills`            | `.continue/skills` |
-| Goose                             | `~/.config/goose/skills`        | `.goose/skills`    |
-| OpenClaw                          | `~/.openclaw/skills`            | `skills`           |
-| Pi                                | `~/.pi/agent/skills`            | `.pi/skills`       |
-| Warp                              | `~/.agents/skills`              | `.agents/skills`   |
+| Agent                   | Global directory            | Project directory  |
+| ----------------------- | --------------------------- | ------------------ |
+| Claude Code             | `~/.claude/skills`          | `.claude/skills`   |
+| Codex                   | `~/.agents/skills`          | `.agents/skills`   |
+| Cursor                  | `~/.cursor/skills`          | `.cursor/skills`   |
+| OpenCode                | `~/.config/opencode/skills` | `.opencode/skills` |
+| Devin (Desktop and CLI) | `~/.config/devin/skills`    | `.devin/skills`    |
+| Grok Build              | `~/.grok/skills`            | `.grok/skills`     |
+| GitHub Copilot          | `~/.copilot/skills`         | `.agents/skills`   |
+| Gemini CLI              | `~/.gemini/skills`          | `.agents/skills`   |
+| Warp                    | `~/.agents/skills`          | `.agents/skills`   |
 
 > [!TIP]
-> Additional agent directories were checked against the installer on **September 24, 2026**.
+> Added directories were checked against the installer and [Devin documentation](https://docs.devin.ai/desktop/cascade/skills) on **September 24, 2026**.
 > See [vercel-labs/skills](https://github.com/vercel-labs/skills#supported-agents)
-> for the full, maintained list and installer names. For unlisted agents, check
-> their documentation for Agent Skills support and installation paths.
+> for the full, maintained list.
 
 For example, for Claude Code:
 

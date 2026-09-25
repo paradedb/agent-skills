@@ -71,7 +71,7 @@ the project-local `.agents/skills` directory, but global directories vary.
 | Warp           | `~/.agents/skills`          | `.agents/skills`   |
 
 > [!TIP]
-> Added directories were checked against the installer on **September 24, 2026**.
+> Added directories were last checked against the installer on **September 24, 2026**.
 > See [vercel-labs/skills](https://github.com/vercel-labs/skills#supported-agents)
 > for the full, maintained list.
 

@@ -63,11 +63,11 @@ the project-local `.agents/skills` directory, but global directories vary.
 | Claude Code    | `~/.claude/skills`          | `.claude/skills`   |
 | Codex          | `~/.agents/skills`          | `.agents/skills`   |
 | Cursor         | `~/.cursor/skills`          | `.cursor/skills`   |
-| OpenCode       | `~/.config/opencode/skills` | `.opencode/skills` |
 | Devin          | `~/.config/devin/skills`    | `.devin/skills`    |
-| Grok Build     | `~/.grok/skills`            | `.grok/skills`     |
-| GitHub Copilot | `~/.copilot/skills`         | `.agents/skills`   |
 | Gemini CLI     | `~/.gemini/skills`          | `.agents/skills`   |
+| GitHub Copilot | `~/.copilot/skills`         | `.agents/skills`   |
+| Grok Build     | `~/.grok/skills`            | `.grok/skills`     |
+| OpenCode       | `~/.config/opencode/skills` | `.opencode/skills` |
 | Warp           | `~/.agents/skills`          | `.agents/skills`   |
 
 > [!TIP]

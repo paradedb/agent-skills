@@ -106,11 +106,9 @@ How do I tune ParadeDB to trade recall against latency?
 
 What do training_sample_ratio and max_leaf_size do at index build time?
 
-How does vector quantization work in 0.26.0, and when do configuration changes require REINDEX?
+How does vector quantization work, and when do configuration changes require REINDEX?
 
 How do I inspect stored vector segments, build settings, and estimator diagnostics?
-
-What must I rebuild or recreate when upgrading a vector index from 0.25.x to 0.26.0?
 
 Should I migrate off pgvector's HNSW index, and what do I gain for filtered queries?
 

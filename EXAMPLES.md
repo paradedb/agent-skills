@@ -32,11 +32,7 @@ How do I create a partial index that only covers rows where status = 'published'
 When should I enable columnar storage on a field?
 
 How do I reindex without taking search offline, and how do I verify index integrity afterwards?
-```
 
-## Index Partitioning (0.26.0+, Beta)
-
-```text
 How do I partition my ParadeDB index by tenant_id to accelerate tenant-filtered searches?
 
 Can I partition by tenant_id and created_at together, and how many segments should I use?
@@ -44,8 +40,6 @@ Can I partition by tenant_id and created_at together, and how many segments shou
 What types and tokenizers are supported for partition_by columns?
 
 How do I partition both sides of an equi-join to accelerate parallel joins?
-
-When should I REINDEX a partitioned index as new rows are inserted?
 ```
 
 ## Basic Full-Text Search

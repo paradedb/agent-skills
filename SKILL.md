@@ -104,9 +104,9 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
    scoring function itself.
 6. Vector search runs inside the ParadeDB index as of version 0.25.0, where it is a beta
    feature. Install the `vector` extension in the same database before installing or
-   upgrading `pg_search`. ParadeDB indexes
-   pgvector's `vector` type, but does not use pgvector's HNSW or
-   IVFFlat indexes — do not suggest them for a vector column that is in a ParadeDB index.
+   upgrading `pg_search`. ParadeDB indexes pgvector's `vector` type, but does not use
+   pgvector's HNSW or IVFFlat indexes — do not suggest them for a vector column that
+   is in a ParadeDB index.
    Fetch `reference/indexing/indexing-vectors.md` and `reference/vector/querying.md`
    before writing vector queries, and `reference/hybrid/rrf.md` before writing hybrid ones.
 

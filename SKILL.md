@@ -33,8 +33,9 @@ Common commands include:
 
 ```bash
 # Getting started and application integrations
-scripts/paradedb-docs start/connect-your-app.md
+scripts/paradedb-docs start/configure-your-environment.md
 scripts/paradedb-docs reference/indexing/create-index.md
+scripts/paradedb-docs reference/indexing/columnar.md
 scripts/paradedb-docs reference/indexing/partition-by.md
 scripts/paradedb-docs reference/indexing/faster-bm25-queries.md
 scripts/paradedb-docs reference/full-text/match.md
@@ -42,7 +43,9 @@ scripts/paradedb-docs reference/full-text/match.md
 # Filters, facets, and joins
 scripts/paradedb-docs reference/filtering/overview.md
 scripts/paradedb-docs reference/filtering/external-indexes.md
+scripts/paradedb-docs reference/aggregates/overview.md
 scripts/paradedb-docs reference/aggregates/facets.md
+scripts/paradedb-docs reference/aggregates/limitations.md
 scripts/paradedb-docs reference/joins/overview.md
 
 # Vector and hybrid search
@@ -50,6 +53,14 @@ scripts/paradedb-docs reference/indexing/indexing-vectors.md
 scripts/paradedb-docs reference/vector/querying.md
 scripts/paradedb-docs reference/vector/tuning.md
 scripts/paradedb-docs reference/hybrid/rrf.md
+
+# Tokenizer options
+scripts/paradedb-docs reference/tokenizers/available-tokenizers/jieba.md
+scripts/paradedb-docs reference/tokenizers/available-tokenizers/chinese-compatible.md
+
+# Upgrades and index maintenance
+scripts/paradedb-docs operate/deploy/upgrading.md
+scripts/paradedb-docs operate/index-maintenance/reindexing.md
 
 # SQL APIs and runtime settings
 scripts/paradedb-docs reference/operators-and-functions.md
@@ -93,7 +104,7 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
    scoring function itself.
 6. Vector search runs inside the ParadeDB index as of version 0.25.0, where it is a beta
    feature. Install the `vector` extension in the same database before installing or
-   upgrading `pg_search`; pgvector is required from 0.25.0 onward. ParadeDB indexes
+   upgrading `pg_search`. ParadeDB indexes
    pgvector's `vector` type, but does not use pgvector's HNSW or
    IVFFlat indexes — do not suggest them for a vector column that is in a ParadeDB index.
    Fetch `reference/indexing/indexing-vectors.md` and `reference/vector/querying.md`

@@ -35,6 +35,8 @@ Common commands include:
 # Getting started and application integrations
 scripts/paradedb-docs start/connect-your-app.md
 scripts/paradedb-docs reference/indexing/create-index.md
+scripts/paradedb-docs reference/indexing/partition-by.md
+scripts/paradedb-docs reference/indexing/faster-bm25-queries.md
 scripts/paradedb-docs reference/full-text/match.md
 
 # Filters, facets, and joins
@@ -90,7 +92,9 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
    backwards-compatible alias, and call it the ParadeDB index. Reserve "BM25" for the
    scoring function itself.
 6. Vector search runs inside the ParadeDB index as of version 0.25.0, where it is a beta
-   feature. ParadeDB indexes pgvector's `vector` type, but does not use pgvector's HNSW or
+   feature. Install the `vector` extension in the same database before installing or
+   upgrading `pg_search`; pgvector is required from 0.25.0 onward. ParadeDB indexes
+   pgvector's `vector` type, but does not use pgvector's HNSW or
    IVFFlat indexes — do not suggest them for a vector column that is in a ParadeDB index.
    Fetch `reference/indexing/indexing-vectors.md` and `reference/vector/querying.md`
    before writing vector queries, and `reference/hybrid/rrf.md` before writing hybrid ones.
@@ -109,3 +113,57 @@ If any documentation cannot be fetched due to DNS/network/access errors:
 6. Label any fallback statements as assumptions and keep them minimal.
 
 Never silently switch to guessed documentation structure when network access fails.
+
+## Guidance for 0.26.0 and Later
+
+Check the installed version before applying these rules to an older database.
+Fetch the relevant live references above for complete syntax and current defaults.
+
+- Index definitions do not require a primary key, a unique first column, or an
+  identifier option in `WITH`. Include columns needed for search, filtering,
+  ordering, and returned values. Avoid copying obsolete identifier options from
+  historical release examples.
+- Vector queries need a ParadeDB search predicate at the same query level as
+  `ORDER BY <distance> LIMIT k`. Use `WHERE id @@@ pdb.all()` for an unfiltered
+  query when `id` is indexed. Match `<->`, `<=>`, or `<#>` to `vector_l2_ops`,
+  `vector_cosine_ops`, or `vector_ip_ops`, respectively. Confirm pushdown with
+  `EXPLAIN` and `Exec Method: TopKScanExecState`.
+- Vector build options are `training_sample_ratio` (default `0.32`) and
+  `max_leaf_size` (default `100`). They replace `centroid_ratio` and
+  `training_samples_per_centroid`, which are no longer accepted. Recreate indexes
+  storing those old options; `REINDEX` alone does not remove obsolete options.
+- Quantization is enabled by default for vector fields with at least 64
+  dimensions. Field-level `vector_fields` settings, including
+  `"quantization": false`, take effect on `CREATE INDEX` or `REINDEX`; changing
+  them with `ALTER INDEX ... SET` requires a rebuild. Use
+  `paradedb.vector_cluster_max_probe` to tune recall against latency, and fetch
+  the tuning and configuration references before changing other settings.
+- After upgrading to 0.26.0, rebuild every index containing vectors with
+  `REINDEX`, including unquantized indexes. Vector queries fail until rebuilt;
+  `REINDEX CONCURRENTLY` allows writes to continue. Fetch the upgrade and
+  reindexing guides before planning an upgrade.
+- For vector diagnostics, consult the SQL function reference for
+  `paradedb.vector_info`, `paradedb.vector_config`, and
+  `paradedb.vector_estimator_info`. Stored segment metadata and configured build
+  targets may differ until a rebuild; estimator diagnostics do not tune the index.
+- `partition_by` is a beta index option introduced in 0.26.0. Fetch
+  `reference/indexing/partition-by.md` before recommending it. Choose columns
+  used in selective equality/range filters, or equi-join keys on both tables.
+  Partition columns must be single-valued and columnar indexed; text requires
+  `pdb.literal`. Arrays and JSON/JSONB cannot be partition columns. Multiple
+  columns use a comma-separated string, and their order does not matter.
+  Start with 1–2 columns and `target_segment_count` at 2–4 times CPU cores or
+  parallel workers. Boundaries are set on `CREATE INDEX`/`REINDEX` and are not
+  rebalanced as writes accumulate; rebuild when needed to restore pruning.
+- For faster BM25 scoring, fetch `reference/indexing/faster-bm25-queries.md`.
+  Rebuilding existing indexes enables the new text-search improvements; enabling
+  `pnorms=true` on scoring text fields' tokenizer casts during the rebuild enables
+  the posting-norm improvements.
+- For analytics, consult the aggregate and join references before implementing
+  application-side workarounds: 0.26.0 adds eligible `SELECT DISTINCT` pushdown,
+  global window aggregates with empty `OVER ()` over joins, and grouping by
+  `DATE(timestamp)` for columnar timestamps without time zone. Preserve MVCC
+  correctness with aggregate `visibility='transaction'` (the default); `raw`
+  skips visibility checks and `threshold` applies them conditionally.
+- Fetch tokenizer references for Jieba `search_mode` and
+  `chinese_compatible`'s `chinese_convert` options before configuring them.

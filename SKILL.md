@@ -39,9 +39,11 @@ scripts/paradedb-docs reference/indexing/columnar.md
 scripts/paradedb-docs reference/indexing/partition-by.md
 scripts/paradedb-docs reference/indexing/faster-bm25-queries.md
 scripts/paradedb-docs reference/full-text/match.md
+scripts/paradedb-docs reference/full-text/top-k.md
 
 # Filters, facets, and joins
 scripts/paradedb-docs reference/filtering/overview.md
+scripts/paradedb-docs reference/filtering/indexed.md
 scripts/paradedb-docs reference/filtering/external-indexes.md
 scripts/paradedb-docs reference/aggregates/overview.md
 scripts/paradedb-docs reference/aggregates/facets.md
@@ -54,11 +56,14 @@ scripts/paradedb-docs reference/vector/querying.md
 scripts/paradedb-docs reference/vector/tuning.md
 scripts/paradedb-docs reference/hybrid/rrf.md
 
-# Tokenizer options
+# Tokenizers and token filters
+scripts/paradedb-docs reference/tokenizers/overview.md
+scripts/paradedb-docs reference/token-filters/overview.md
 scripts/paradedb-docs reference/tokenizers/available-tokenizers/jieba.md
 scripts/paradedb-docs reference/tokenizers/available-tokenizers/chinese-compatible.md
 
-# Upgrades and index maintenance
+# Performance, upgrades, and index maintenance
+scripts/paradedb-docs operate/performance-tuning/reads.md
 scripts/paradedb-docs operate/deploy/upgrading.md
 scripts/paradedb-docs operate/index-maintenance/reindexing.md
 

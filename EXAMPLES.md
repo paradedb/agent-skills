@@ -32,6 +32,14 @@ How do I create a partial index that only covers rows where status = 'published'
 When should I enable columnar storage on a field?
 
 How do I reindex without taking search offline, and how do I verify index integrity afterwards?
+
+How do I partition my ParadeDB index by tenant_id to accelerate tenant-filtered searches?
+
+Can I partition by tenant_id and created_at together, and how many segments should I use?
+
+What types and tokenizers are supported for partition_by columns?
+
+How do I partition both sides of an equi-join to accelerate parallel joins?
 ```
 
 ## Basic Full-Text Search
@@ -96,7 +104,11 @@ My vector results change between runs. How do I make the ordering deterministic?
 
 How do I tune ParadeDB to trade recall against latency?
 
-What do centroid_ratio, training_samples_per_centroid, and cluster_replication do at index build time?
+What do training_sample_ratio and max_leaf_size do at index build time?
+
+How does vector quantization work, and when do configuration changes require REINDEX?
+
+How do I inspect stored vector segments, build settings, and estimator diagnostics?
 
 Should I migrate off pgvector's HNSW index, and what do I gain for filtered queries?
 
@@ -147,6 +159,10 @@ How do I compute percentiles, cardinality, and stats over the rows matching a se
 How do I return the top hits within each bucket of a terms aggregation?
 
 What are the limitations of ParadeDB aggregations, and how do I make them faster?
+
+Can I push down SELECT DISTINCT or COUNT(*) OVER () on a search query over joined tables?
+
+How do aggregate visibility modes affect counts when rows are updated or deleted?
 ```
 
 ## Ranking & Relevance Tuning
@@ -159,6 +175,8 @@ How do I add boost fields to prioritize certain matches?
 How do I read pdb.score() and sort by relevance alongside another column?
 
 How do I keep the Top K optimization when I sort by score and then by a tiebreaker column?
+
+How do I enable pnorms on scoring text fields when rebuilding an index for faster BM25 queries?
 ```
 
 ## Tokenizers & Token Filters

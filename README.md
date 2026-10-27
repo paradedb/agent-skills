@@ -9,7 +9,7 @@
   <br>
 </h1>
 
-<h2 align="center">Just use Postgres.</h2>
+<h2 align="center">Just use Postgres</h2>
 
 <p align="center">
   Fast text and vector search, filters, facets, and joins in Postgres.

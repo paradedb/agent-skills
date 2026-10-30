@@ -39,6 +39,7 @@ scripts/paradedb-docs reference/indexing/columnar.md
 scripts/paradedb-docs reference/indexing/partition-by.md
 scripts/paradedb-docs reference/indexing/faster-bm25-queries.md
 scripts/paradedb-docs reference/full-text/match.md
+scripts/paradedb-docs reference/full-text/score.md
 scripts/paradedb-docs reference/full-text/top-k.md
 
 # Filters, facets, and joins
@@ -114,6 +115,15 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
    is in a ParadeDB index.
    Fetch `reference/indexing/indexing-vectors.md` and `reference/vector/querying.md`
    before writing vector queries, and `reference/hybrid/rrf.md` before writing hybrid ones.
+7. ParadeDB supports querying normalized schemas directly over joins without requiring
+   denormalization in most cases. Nearly all query patterns supported over a single table
+   (Top K by column or `pdb.score()`, cross-table `OR` predicates, `SELECT DISTINCT`,
+   `GROUP BY` aggregates, `COUNT(*) OVER ()`, and `pdb.agg(...) OVER ()` facets) are
+   supported across multiple joined tables when each participating table has a ParadeDB
+   index, using specialized search joins ("rank joins") to stream top K candidates without
+   materializing full join inputs. Consult `reference/joins/overview.md`,
+   `reference/full-text/score.md`, and `reference/aggregates/limitations.md` (for the few
+   `pdb.agg()` JSON sub-aggregations that only run on a single table).
 
 ## Network Failure Rules (Mandatory)
 

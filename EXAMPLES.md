@@ -129,16 +129,30 @@ What rank constant (k) should I use for RRF, and how does it change the results?
 How do I run nearest-neighbour search and combine it with text search for hybrid results?
 ```
 
-## Joins
+## Joins & Normalized Schemas
 
 ```text
-How do I search across a joined table and still get the search pushed into the index?
+Should I denormalize my tables for search, or keep a normalized schema and join them?
+
+What ParadeDB features are only supported over a single table vs. over joins?
+
+How should I design ParadeDB indexes across normalized tables so joins, filters, and sorts push down?
 
 What are the requirements for join pushdown in ParadeDB?
 
+How do I search across a joined table and still get the search pushed into the index?
+
+How do I combine pdb.score() across joined tables with an OR search and keep Top K performance?
+
+How do I weight matches in a parent table higher than matches in a joined child table?
+
+How do I verify with EXPLAIN that my Top K join is being pushed down into the ParadeDB index?
+
 How do I write a semi join that returns parent rows having at least one matching child row?
 
-How do I score a query that spans two tables?
+How should I configure partition_by across normalized tables in a multi-tenant schema?
+
+How do I keep Top K performance when joining a searchable table to a table without a ParadeDB index?
 ```
 
 ## Analytics & Aggregations
@@ -159,8 +173,6 @@ How do I compute percentiles, cardinality, and stats over the rows matching a se
 How do I return the top hits within each bucket of a terms aggregation?
 
 What are the limitations of ParadeDB aggregations, and how do I make them faster?
-
-Can I push down SELECT DISTINCT or COUNT(*) OVER () on a search query over joined tables?
 
 How do aggregate visibility modes affect counts when rows are updated or deleted?
 ```

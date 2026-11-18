@@ -103,11 +103,9 @@ Do **not** use any tool other than `scripts/paradedb-docs` to fetch documentatio
    such as `paradedb.enable_custom_scan`, and documented operational functions in the
    `paradedb` schema are current. Check the SQL function and configuration references
    before changing those names.
-5. In version 0.25.0, the BM25 index was renamed to the ParadeDB index, because it now
-   powers vector search, aggregates, top K and filtering as well as BM25 scoring. Write
-   `CREATE INDEX ... USING paradedb`, not `USING bm25`, which survives only as a
-   backwards-compatible alias, and call it the ParadeDB index. Reserve "BM25" for the
-   scoring function itself.
+5. Use `CREATE INDEX ... USING paradedb` and call it a ParadeDB index. It supports text
+   and vector search, filtering, aggregates, and Top K queries. Use BM25 when referring
+   to the text relevance scoring algorithm.
 6. Vector search runs inside the ParadeDB index as of version 0.25.0, where it is a beta
    feature. Install the `vector` extension in the same database before installing or
    upgrading `pg_search`. ParadeDB indexes pgvector's `vector` type, but does not use
